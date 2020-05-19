@@ -1,4 +1,4 @@
-# ASW_Grup11A_Webapp
+# ASW_Grup11A_Angular
 
 Xavier Campos Diaz
 
