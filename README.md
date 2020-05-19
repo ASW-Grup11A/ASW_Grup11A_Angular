@@ -10,6 +10,6 @@ Albert Pinto i Gil
 
 Marc Simó Guzmán
 
-Heroku link:
+Heroku link: https://empo-news-angular.herokuapp.com/
 
 Trello:
