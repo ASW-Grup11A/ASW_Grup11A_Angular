@@ -12,10 +12,22 @@ export class ContributionService {
 
   constructor(private http: HttpClient) { }
 
+  createContribution(data: {title: string, url?: string, text?: string}): Observable<Contribution> {
+    return this.http.post<Contribution>(this.url, data)
+      .pipe(this.handleError<Contribution>('createContribution'));
+  }
+
   getContributions(): Observable<Contribution[]> {
     return this.http.get<Contribution[]>(this.url)
       .pipe(
         catchError(this.handleError<Contribution[]>('getContributions', []))
+      );
+  }
+
+  updateContribution(data: {title?: string, text?: string}): Observable<Contribution> {
+    return this.http.put<Contribution>(this.url, data)
+      .pipe(
+        catchError(this.handleError<Contribution>('updateContribution'))
       );
   }
 

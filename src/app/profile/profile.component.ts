@@ -23,8 +23,8 @@ export class ProfileComponent implements OnInit {
   }
 
   private updateAbout() {
-    let parameters: Map<string, any>;
+    let parameters: Map<string, any> = new Map<string, any>();
     parameters.set("about", "Baixo cada dia");
-    this.userService.updateUser(this.user, parameters)
+    this.userService.updateUser(this.user, parameters);
   }
 }
