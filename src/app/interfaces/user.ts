@@ -1,6 +1,6 @@
 
 export interface User {
-  username: string;
+  id: string; // username
   dateJoined: string;
   karma: number;
   about: string;

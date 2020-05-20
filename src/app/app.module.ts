@@ -8,10 +8,12 @@ import {HttpClientInMemoryWebApiModule} from "angular-in-memory-web-api";
 import {ContributionInMemoryDataService} from "./services/contribution-in-memory-data.service";
 import {CommentInMemoryDataService} from "./services/comment-in-memory-data.service";
 import {UserInMemoryDataService} from "./services/user-in-memory-data.service";
+import {ProfileComponent} from './profile/profile.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
