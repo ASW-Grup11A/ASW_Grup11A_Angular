@@ -8,6 +8,6 @@ export interface Contribution {
   comments: number;
   points: number;
   hidden: number;
-  liked: boolean;
+  liked: boolean
   show: boolean;
 }
