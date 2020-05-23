@@ -4,7 +4,7 @@ import {Injectable} from '@angular/core';
   providedIn: 'root'
 })
 export class UtilitiesService {
-  constructor() { }
+  constructor() { } // Constructor
 
   static encodeParameters(parameters: Map<string, any>): string {
     if (parameters.size === 0) {
