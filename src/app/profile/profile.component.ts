@@ -1,7 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {User} from "../interfaces/user";
 import {UserService} from "../services/user.service";
-import {UtilitiesService} from "../services/utilities.service";
+import {HttpParams} from "@angular/common/http";
+import {ContributionService} from "../services/contribution.service";
+import {Contribution} from "../interfaces/contribution";
+import {Comment} from "../interfaces/comment";
 
 @Component({
   selector: 'app-profile',
@@ -10,23 +13,42 @@ import {UtilitiesService} from "../services/utilities.service";
 })
 export class ProfileComponent implements OnInit {
   user: User;
+  contribution: Contribution;
+  comment: Comment;
 
-  constructor(private userService: UserService) {
+  constructor(
+    private userService: UserService,
+    private contributionService: ContributionService
+  ) {
   }
 
   ngOnInit(): void {
     this.getUser();
+    this.deleteContribution();
+    //this.createContribution();
   }
 
   private getUser() {
-    console.log("I'm gonna get a user");
     this.userService.getUserProfile('sgmarcsg').subscribe(user => this.user = user);
-    console.log("I got a response");
   }
 
   private updateAbout() {
-    let parameters: Map<string, any> = new Map<string, any>();
-    parameters.set("about", "Baixo cada dia");
-    this.userService.updateUserProfile(UtilitiesService.convertToHttpParams(parameters));
+    let params: HttpParams = new HttpParams();
+    params = params.append('about', 'I love Minekraft');
+    this.userService.updateUserProfile(params).subscribe(user => this.user = user);
+  }
+
+  private createContribution() {
+    let params: HttpParams = new HttpParams();
+    let body: object = {
+      title: "I love Minekraft",
+      url: "http://mecagoentusmuertos.com/albert"
+    }
+    this.contributionService.createContribution(body).subscribe(
+      contribution => this.contribution = contribution);
+  }
+
+  private deleteContribution() {
+    this.contributionService.deleteContribution("5");
   }
 }

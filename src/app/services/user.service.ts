@@ -9,34 +9,32 @@ import {catchError} from "rxjs/operators";
 })
 export class UserService {
   private url = 'http://empo-news.herokuapp.com/api/v1/profile';
+  private headers;
 
   constructor(
-    private http: HttpClient,
-    private readonly headers: HttpHeaders,
-    ) {
-    this.headers = new HttpHeaders();
-    this.headers.append("Api-Key", "c2dtYXJjc2dzZ21hcmNzZ0BnbWFpbC5jb20y");
+    private http: HttpClient
+  ){
+    this.headers = new HttpHeaders().set('Api-Key', 'c2dtYXJjc2dzZ21hcmNzZ0BnbWFpbC5jb20y');
   }
 
   getUserProfile(username: string): Observable<User> {
-    console.log("I'm gonna send the request");
     return this.http.get<User>(`${this.url}/${username}`,
       {
         headers: this.headers,
-        observe: "body" as const,
-        responseType: 'json' as const
+        observe: "body",
+        responseType: 'json'
       })
       .pipe(
       catchError(this.handleError<User>(`getUser username=${username}`))
     );
   }
 
-  updateUserProfile(paramsToUpdate: HttpParams): Observable<any> {
+  updateUserProfile(paramsToUpdate: HttpParams): Observable<User> {
     return this.http.put(this.url, {}, {
       headers: this.headers,
-      observe: "body" as const,
+      observe: "body",
       params: paramsToUpdate,
-      responseType: 'json' as const
+      responseType: 'json'
     })
       .pipe(
         catchError(this.handleError<any>('updateUser'))

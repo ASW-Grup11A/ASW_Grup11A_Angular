@@ -1,13 +1,13 @@
 
 export interface User {
-  id: string; // username
-  dateJoined: string;
+  username: string; // id
+  date_joined: string;
   karma: number;
   about: string;
   email?: string;
-  showDead?: boolean;
-  noProCast?: boolean;
-  maxVisit?: number;
-  minAway?: number;
+  showdead?: boolean;
+  noprocrast?: boolean;
+  maxvisit?: number;
+  minaway?: number;
   delay?: number;
 }
