@@ -12,7 +12,9 @@ export class AppComponent {
   public signinWithGoogle () {
     let socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
 
-    this.socialAuthService.signIn(socialPlatformProvider);
+    this.socialAuthService.signIn(socialPlatformProvider)
+      .then((userData) => {
+      });
   }
 
 }
