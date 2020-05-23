@@ -9,6 +9,20 @@ import {ContributionInMemoryDataService} from "./services/contribution-in-memory
 import {CommentInMemoryDataService} from "./services/comment-in-memory-data.service";
 import {UserInMemoryDataService} from "./services/user-in-memory-data.service";
 import {ProfileComponent} from './profile/profile.component';
+import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider } from 'angular4-social-login';
+
+const google_oauth_client_id:string = '503458539250-o3r2l4ut7ccd7id6itoats2j0eub0d4j.apps.googleusercontent.com';
+let config = new AuthServiceConfig([
+  {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    provider: new GoogleLoginProvider(google_oauth_client_id)
+  }
+]);
+
+
+export function provideConfig() {
+  return config;
+}
 
 @NgModule({
   declarations: [
@@ -16,6 +30,7 @@ import {ProfileComponent} from './profile/profile.component';
     ProfileComponent
   ],
   imports: [
+    SocialLoginModule.initialize(config),
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
