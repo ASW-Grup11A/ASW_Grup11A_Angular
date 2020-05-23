@@ -36,11 +36,6 @@ export class UtilitiesService {
     } else {
       rawKey += Math.floor(emailLength / usernameLength).toString();
     }
-    const encodedKey = new TextEncoder().encode(rawKey);
-    const decodedKey = new TextDecoder('utf8').decode(encodedKey);
-    console.log(`Raw key ${rawKey}`);
-    console.log(`Encoded key ${encodedKey}`);
-    console.log(`Decoded key ${decodedKey}`);
-    return rawKey;
+    return btoa(rawKey);
   }
 }
