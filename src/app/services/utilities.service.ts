@@ -4,7 +4,8 @@ import {Injectable} from '@angular/core';
   providedIn: 'root'
 })
 export class UtilitiesService {
-  constructor() { } // Constructor
+  constructor() {
+  }
 
   static encodeParameters(parameters: Map<string, any>): string {
     if (parameters.size === 0) {
@@ -14,7 +15,7 @@ export class UtilitiesService {
     let urlParameters = '?';
     let firstIteration = true;
 
-    for (let [key, value] of parameters) {
+    for (const [key, value] of parameters) {
       if (!firstIteration) {
         urlParameters = urlParameters.concat('&');
       }
@@ -24,5 +25,22 @@ export class UtilitiesService {
     }
 
     return urlParameters;
+  }
+
+  static createApiKey(params: {username: string, email: string}): string {
+    let rawKey = params.username + params.email;
+    const usernameLength = params.username.length;
+    const emailLength = params.email.length;
+    if (usernameLength > emailLength) {
+      rawKey += Math.floor(usernameLength / emailLength).toString();
+    } else {
+      rawKey += Math.floor(emailLength / usernameLength).toString();
+    }
+    const encodedKey = new TextEncoder().encode(rawKey);
+    const decodedKey = new TextDecoder('utf8').decode(encodedKey);
+    console.log(`Raw key ${rawKey}`);
+    console.log(`Encoded key ${encodedKey}`);
+    console.log(`Decoded key ${decodedKey}`);
+    return rawKey;
   }
 }
