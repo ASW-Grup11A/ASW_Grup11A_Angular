@@ -25,6 +25,7 @@
     "angularx-social-login": "^2.3.1",
     "peer": "^0.5.3",
     "rxjs": "~6.5.4",
+    "rxjs-compat": "^6.5.5",
     "tslib": "^1.10.0",
     "yarn": "^1.22.4",
     "zone.js": "~0.10.2"
