@@ -1,29 +1,41 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Observable, of} from "rxjs";
 import {User} from "../interfaces/user";
 import {catchError} from "rxjs/operators";
-import {UtilitiesService} from "./utilities.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private url = 'api/users';
+  private url = 'http://empo-news.herokuapp.com/api/v1/profile';
+  private headers;
 
-  constructor(private http: HttpClient) { }
-
-  getUser(username: string): Observable<User> {
-    return this.http.get<User>(`${this.url}/${username}`)
-      .pipe(
-        catchError(this.handleError<User>(`getUser username=${username}`))
-      );
+  constructor(
+    private http: HttpClient
+  ){
+    this.headers = new HttpHeaders().set('Api-Key', 'c2dtYXJjc2dzZ21hcmNzZ0BnbWFpbC5jb20y');
   }
 
-  updateUser(user: User, userUpdate: Map<string, any>): Observable<any> {
-    let requestUrl = this.url.concat(UtilitiesService.encodeParameters(userUpdate));
+  getUserProfile(username: string): Observable<User> {
+    return this.http.get<User>(`${this.url}/${username}`,
+      {
+        headers: this.headers,
+        observe: "body",
+        responseType: 'json'
+      })
+      .pipe(
+      catchError(this.handleError<User>(`getUser username=${username}`))
+    );
+  }
 
-    return this.http.put(requestUrl, {})
+  updateUserProfile(paramsToUpdate: HttpParams): Observable<User> {
+    return this.http.put(this.url, {}, {
+      headers: this.headers,
+      observe: "body",
+      params: paramsToUpdate,
+      responseType: 'json'
+    })
       .pipe(
         catchError(this.handleError<any>('updateUser'))
       )
@@ -31,7 +43,7 @@ export class UserService {
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-      console.error(error);
+      console.error(error + "in operation: " + operation);
       return of(result as T);
     };
   }

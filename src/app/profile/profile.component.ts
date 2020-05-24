@@ -1,7 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {User} from '../interfaces/user';
 import {UserService} from '../services/user.service';
 import {UtilitiesService} from '../services/utilities.service';
+import {HttpParams} from "@angular/common/http";
+import {ContributionService} from "../services/contribution.service";
+import {Contribution} from "../interfaces/contribution";
+import {Comment} from "../interfaces/comment";
+import {CommentService} from "../services/comment.service";
 
 @Component({
   selector: 'app-profile',
@@ -10,24 +15,63 @@ import {UtilitiesService} from '../services/utilities.service';
 })
 export class ProfileComponent implements OnInit {
   user: User;
+  contribution: Contribution;
+  comment: Comment;
 
-  constructor(private userService: UserService) {
+  constructor(
+    private userService: UserService,
+    private contributionService: ContributionService,
+    private commentService: CommentService
+  ) {
   }
 
   ngOnInit(): void {
-    this.getUser();
-    this.updateAbout();
+    //this.voteContribution();
+    //this.getUser();
+    //this.deleteContribution();
+    //this.createContribution();
+    //this.createComment();
+    this.getComment();
     const apiKey = UtilitiesService.createApiKey({username: 'albert.pinto', email: 'albert.pinto@estudiantat.upc.edu'});
     console.log(`Api Key: ${apiKey}`);
   }
 
   private getUser() {
-    this.userService.getUser('Marc Simó').subscribe(user => this.user = user);
+    this.userService.getUserProfile('sgmarcsg').subscribe(user => this.user = user);
   }
 
   private updateAbout() {
-    const parameters: Map<string, any> = new Map<string, any>();
-    parameters.set('about', 'Baixo cada dia');
-    this.userService.updateUser(this.user, parameters);
+    let params: HttpParams = new HttpParams();
+    params = params.append('about', 'I love Minekraft');
+    this.userService.updateUserProfile(params).subscribe(user => this.user = user);
+  }
+
+  private createContribution() {
+    let params: HttpParams = new HttpParams();
+    let body: object = {
+      title: "I love Minekraft",
+      url: "http://mecagoentusmuertos.com/albert"
+    }
+    this.contributionService.createContribution(body).subscribe(
+      contribution => this.contribution = contribution);
+  }
+
+  private deleteContribution() {
+    this.contributionService.deleteContribution("1").subscribe();
+  }
+
+  private voteContribution() {
+    this.contributionService.voteContribution("24").subscribe();
+  }
+
+  private createComment() {
+    let body: object = {
+      text: "I do really love love love love Minekraft"
+    }
+    this.commentService.createComment('24', body).subscribe(comment => this.comment = comment);
+  }
+
+  private getComment() {
+    this.commentService.getComment('34').subscribe(comment => this.comment = comment);
   }
 }
