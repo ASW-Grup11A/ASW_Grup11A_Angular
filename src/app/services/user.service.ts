@@ -43,7 +43,7 @@ export class UserService {
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-      console.error(error);
+      console.error(error + "in operation: " + operation);
       return of(result as T);
     };
   }

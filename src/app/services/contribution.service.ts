@@ -66,8 +66,8 @@ export class ContributionService {
       );
   }
 
-  deleteContribution(contributionId: string): void {
-    this.http.delete(`${this.url}/contribution/${contributionId}`,
+  deleteContribution(contributionId: string): Observable<any> {
+    return this.http.delete(`${this.url}/contribution/${contributionId}`,
       {
         headers: this.headers,
         observe: "body",
@@ -78,9 +78,53 @@ export class ContributionService {
       );
   }
 
+  voteContribution(contributionId: string): Observable<Contribution> {
+    return this.http.put(`${this.url}/contribution/${contributionId}/vote`, {}, {
+      headers: this.headers,
+      observe: "body",
+      responseType: 'json'
+    })
+      .pipe(
+        catchError(this.handleError<any>('voteContribution'))
+      )
+  }
+
+  unvoteContribution(contributionId: string): Observable<Contribution> {
+    return this.http.put(`${this.url}/contribution/${contributionId}/unvote`, {}, {
+      headers: this.headers,
+      observe: "body",
+      responseType: 'json'
+    })
+      .pipe(
+        catchError(this.handleError<any>('unvoteContribution'))
+      )
+  }
+
+  hideContribution(contributionId: string): Observable<Contribution> {
+    return this.http.put(`${this.url}/contribution/${contributionId}/hide`, {}, {
+      headers: this.headers,
+      observe: "body",
+      responseType: 'json'
+    })
+      .pipe(
+        catchError(this.handleError<any>('hideContribution'))
+      )
+  }
+
+  unhideContribution(contributionId: string): Observable<Contribution> {
+    return this.http.put(`${this.url}/contribution/${contributionId}/unhide`, {}, {
+      headers: this.headers,
+      observe: "body",
+      responseType: 'json'
+    })
+      .pipe(
+        catchError(this.handleError<any>('unhideContribution'))
+      )
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-      console.error(error);
+      console.error(error + "in operation: " + operation);
       return of(result as T);
     };
   }

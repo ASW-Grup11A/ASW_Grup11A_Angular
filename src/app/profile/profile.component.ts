@@ -5,6 +5,7 @@ import {HttpParams} from "@angular/common/http";
 import {ContributionService} from "../services/contribution.service";
 import {Contribution} from "../interfaces/contribution";
 import {Comment} from "../interfaces/comment";
+import {CommentService} from "../services/comment.service";
 
 @Component({
   selector: 'app-profile',
@@ -18,14 +19,18 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private contributionService: ContributionService
+    private contributionService: ContributionService,
+    private commentService: CommentService
   ) {
   }
 
   ngOnInit(): void {
-    this.getUser();
-    this.deleteContribution();
+    //this.voteContribution();
+    //this.getUser();
+    //this.deleteContribution();
     //this.createContribution();
+    //this.createComment();
+    this.getComment();
   }
 
   private getUser() {
@@ -49,6 +54,21 @@ export class ProfileComponent implements OnInit {
   }
 
   private deleteContribution() {
-    this.contributionService.deleteContribution("5");
+    this.contributionService.deleteContribution("1").subscribe();
+  }
+
+  private voteContribution() {
+    this.contributionService.voteContribution("24").subscribe();
+  }
+
+  private createComment() {
+    let body: object = {
+      text: "I do really love love love love Minekraft"
+    }
+    this.commentService.createComment('24', body).subscribe(comment => this.comment = comment);
+  }
+
+  private getComment() {
+    this.commentService.getComment('34').subscribe(comment => this.comment = comment);
   }
 }

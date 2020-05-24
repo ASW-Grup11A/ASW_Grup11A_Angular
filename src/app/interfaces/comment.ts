@@ -1,6 +1,7 @@
 import {Contribution} from "./contribution";
 
 export interface Comment extends Contribution {
-  contributionId: number;
-  parentId?: number;
+  contribution: number;
+  parent?: number;
+  comments_list?: Comment[];
 }
