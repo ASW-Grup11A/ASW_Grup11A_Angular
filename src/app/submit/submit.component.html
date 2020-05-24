@@ -1,0 +1,19 @@
+<div *ngIf="error.length > 0">
+    <p>{{error}}</p>
+</div>
+
+<form [formGroup]="form" (ngSubmit)="onClick(form.value)">
+    <div>
+        <label for="title">title: </label>
+        <input id="title" type="text" required formControlName="title">
+    </div>
+    <div>
+        <label for="url">url: </label>
+        <input id="url" type="text" formControlName="url">
+    </div>
+    <div>
+        <label for="text">text: </label>
+        <input id="text" type="text" formControlName="text">
+    </div>
+    <button type="submit">Submit</button>
+</form>

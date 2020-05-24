@@ -3,29 +3,25 @@ import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {HttpClientModule} from '@angular/common/http';
 import {ProfileComponent} from './profile/profile.component';
-import {
-  SocialLoginModule,
-  AuthServiceConfig
-} from 'angularx-social-login';
-import { getAuthServiceConfigs } from './socialloginConfig';
-import {RouterModule} from '@angular/router';
+import {AuthServiceConfig, SocialLoginModule} from 'angularx-social-login';
+import {getAuthServiceConfigs} from './socialloginConfig';
 import {AppComponent} from './app.component';
+import {SubmitComponent} from './submit/submit.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProfileComponent
+    ProfileComponent,
+    SubmitComponent
   ],
-  imports: [
-    SocialLoginModule,
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    RouterModule.forRoot([
-      { path: '', component: ProfileComponent},
-      ]
-    )
-  ],
+    imports: [
+        SocialLoginModule,
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        ReactiveFormsModule
+    ],
   providers: [
     {
       provide: AuthServiceConfig,
