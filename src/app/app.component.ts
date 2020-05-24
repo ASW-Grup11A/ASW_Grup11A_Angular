@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {AuthService, GoogleLoginProvider} from "angular5-social-login";
+import {AuthService, GoogleLoginProvider} from 'angularx-social-login';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +14,9 @@ export class AppComponent {
 
     this.socialAuthService.signIn(socialPlatformProvider)
       .then((userData) => {
+        console.log('email is', userData.email.toString());
+        console.log('name is', userData.name);
+
       });
   }
 

@@ -11,8 +11,7 @@ import {UserInMemoryDataService} from "./services/user-in-memory-data.service";
 import {ProfileComponent} from './profile/profile.component';
 import {
   SocialLoginModule,
-  AuthServiceConfig,
-  GoogleLoginProvider
+  AuthServiceConfig
 } from 'angularx-social-login';
 import { getAuthServiceConfigs } from './socialloginConfig';
 
@@ -37,7 +36,10 @@ import { getAuthServiceConfigs } from './socialloginConfig';
     )
   ],
   providers: [
-    SocialLoginModule.initialize(getAuthServiceConfigs()).providers,
+    {
+      provide: AuthServiceConfig,
+      useFactory: getAuthServiceConfigs
+    }
   ],
   bootstrap: [AppComponent]
 })
