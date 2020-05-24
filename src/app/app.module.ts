@@ -9,6 +9,11 @@ import {ContributionInMemoryDataService} from './services/contribution-in-memory
 import {CommentInMemoryDataService} from './services/comment-in-memory-data.service';
 import {UserInMemoryDataService} from './services/user-in-memory-data.service';
 import {ProfileComponent} from './profile/profile.component';
+import {
+  SocialLoginModule,
+  AuthServiceConfig
+} from 'angularx-social-login';
+import { getAuthServiceConfigs } from './socialloginConfig';
 import {RouterModule} from '@angular/router';
 
 @NgModule({
@@ -17,6 +22,7 @@ import {RouterModule} from '@angular/router';
     ProfileComponent
   ],
   imports: [
+    SocialLoginModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -34,7 +40,12 @@ import {RouterModule} from '@angular/router';
       ]
     )
   ],
-  providers: [],
+  providers: [
+    {
+      provide: AuthServiceConfig,
+      useFactory: getAuthServiceConfigs
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
