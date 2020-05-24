@@ -10,11 +10,15 @@ import {
   AuthServiceConfig
 } from 'angularx-social-login';
 import { getAuthServiceConfigs } from './socialloginConfig';
+import { TopBarComponent } from './top-bar/top-bar.component';
+import { ListContributionsComponent } from './list-contributions/list-contributions.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProfileComponent
+    ProfileComponent,
+    TopBarComponent,
+    ListContributionsComponent
   ],
   imports: [
     SocialLoginModule,
