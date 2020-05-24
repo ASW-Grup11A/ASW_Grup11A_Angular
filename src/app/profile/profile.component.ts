@@ -17,7 +17,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.getUser();
     this.updateAbout();
-    const apiKey = UtilitiesService.createApiKey({username: 'santi.mypetcare', email: 'santi.mypetcare@gmail.com'});
+    const apiKey = UtilitiesService.createApiKey({username: 'albert.pinto', email: 'albert.pinto@estudiantat.upc.edu'});
     console.log(apiKey);
   }
 
