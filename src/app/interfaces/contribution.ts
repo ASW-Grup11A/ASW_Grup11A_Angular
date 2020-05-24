@@ -1,10 +1,10 @@
 export interface Contribution {
   id: number;
-  userId: string;
+  user: string;
   title: string;
   url?: string;
   text?: string;
-  publicationTime: string;
+  publication_time: string;
   comments: number;
   points: number;
   hidden: number;
