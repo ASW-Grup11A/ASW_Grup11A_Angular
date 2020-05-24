@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpParams} from "@angular/common/http";
+import {HttpParams} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -41,8 +41,8 @@ export class UtilitiesService {
   }
 
   static convertToHttpParams(parameters: Map<string, any>): HttpParams {
-    let params: HttpParams = new HttpParams();
-    for (let [key, value] of parameters) {
+    const params: HttpParams = new HttpParams();
+    for (const [key, value] of parameters) {
       params.append(key, value);
     }
     return params;

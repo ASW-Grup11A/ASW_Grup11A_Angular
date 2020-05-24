@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
-import {Observable, of} from "rxjs";
-import {Contribution} from "../interfaces/contribution";
-import {catchError} from "rxjs/operators";
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {Observable, of} from 'rxjs';
+import {Contribution} from '../interfaces/contribution';
+import {catchError} from 'rxjs/operators';
+import {ApiKeyManagerService} from './api-key-manager.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,16 +13,18 @@ export class ContributionService {
   private headers;
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private apiKeyManager: ApiKeyManagerService
   ){
-    this.headers = new HttpHeaders().set('Api-Key', 'c2dtYXJjc2dzZ21hcmNzZ0BnbWFpbC5jb20y');
+    const apiKey = this.apiKeyManager.apiKey;
+    this.headers = new HttpHeaders().set('Api-Key', apiKey);
   }
 
   createContribution(body: object): Observable<Contribution> {
     return this.http.post(`${this.url}/contributions`, body,
       {
         headers: this.headers,
-        observe: "body",
+        observe: 'body',
         responseType: 'json'
       })
       .pipe(
@@ -33,8 +36,8 @@ export class ContributionService {
     return this.http.get<Contribution[]>(`${this.url}/contributions`,
       {
         headers: this.headers,
-        observe: "body",
-        params: params,
+        observe: 'body',
+        params,
         responseType: 'json'
       })
       .pipe(
@@ -45,20 +48,20 @@ export class ContributionService {
   updateContribution(contributionId: string, paramsToUpdate: HttpParams): Observable<Contribution> {
     return this.http.put(`${this.url}/contribution/${contributionId}`, {}, {
       headers: this.headers,
-      observe: "body",
+      observe: 'body',
       params: paramsToUpdate,
       responseType: 'json'
     })
       .pipe(
         catchError(this.handleError<any>('updateContribution'))
-      )
+      );
   }
 
   getContribution(contributionId: string): Observable<Contribution> {
     return this.http.get<Contribution>(`${this.url}/contribution/${contributionId}`,
       {
         headers: this.headers,
-        observe: "body",
+        observe: 'body',
         responseType: 'json'
       })
       .pipe(
@@ -70,7 +73,7 @@ export class ContributionService {
     return this.http.delete(`${this.url}/contribution/${contributionId}`,
       {
         headers: this.headers,
-        observe: "body",
+        observe: 'body',
         responseType: 'json'
       })
       .pipe(
@@ -81,50 +84,50 @@ export class ContributionService {
   voteContribution(contributionId: string): Observable<Contribution> {
     return this.http.put(`${this.url}/contribution/${contributionId}/vote`, {}, {
       headers: this.headers,
-      observe: "body",
+      observe: 'body',
       responseType: 'json'
     })
       .pipe(
         catchError(this.handleError<any>('voteContribution'))
-      )
+      );
   }
 
   unvoteContribution(contributionId: string): Observable<Contribution> {
     return this.http.put(`${this.url}/contribution/${contributionId}/unvote`, {}, {
       headers: this.headers,
-      observe: "body",
+      observe: 'body',
       responseType: 'json'
     })
       .pipe(
         catchError(this.handleError<any>('unvoteContribution'))
-      )
+      );
   }
 
   hideContribution(contributionId: string): Observable<Contribution> {
     return this.http.put(`${this.url}/contribution/${contributionId}/hide`, {}, {
       headers: this.headers,
-      observe: "body",
+      observe: 'body',
       responseType: 'json'
     })
       .pipe(
         catchError(this.handleError<any>('hideContribution'))
-      )
+      );
   }
 
   unhideContribution(contributionId: string): Observable<Contribution> {
     return this.http.put(`${this.url}/contribution/${contributionId}/unhide`, {}, {
       headers: this.headers,
-      observe: "body",
+      observe: 'body',
       responseType: 'json'
     })
       .pipe(
         catchError(this.handleError<any>('unhideContribution'))
-      )
+      );
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-      console.error(error + "in operation: " + operation);
+      console.error(error + 'in operation: ' + operation);
       return of(result as T);
     };
   }
