@@ -18,7 +18,7 @@ export class ProfileComponent implements OnInit {
     this.getUser();
     this.updateAbout();
     const apiKey = UtilitiesService.createApiKey({username: 'albert.pinto', email: 'albert.pinto@estudiantat.upc.edu'});
-    console.log(apiKey);
+    console.log(`Api Key: ${apiKey}`);
   }
 
   private getUser() {
