@@ -16,7 +16,6 @@ export class AppComponent {
       .then((userData) => {
         console.log('email is', userData.email.toString());
         console.log('name is', userData.name);
-
       });
   }
 
