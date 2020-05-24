@@ -8,8 +8,8 @@ import {
   AuthServiceConfig
 } from 'angularx-social-login';
 import { getAuthServiceConfigs } from './socialloginConfig';
-import {RouterModule} from '@angular/router';
 import {AppComponent} from './app.component';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -21,10 +21,7 @@ import {AppComponent} from './app.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    RouterModule.forRoot([
-      { path: '', component: ProfileComponent},
-      ]
-    )
+    FormsModule,
   ],
   providers: [
     {

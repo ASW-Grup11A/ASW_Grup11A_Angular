@@ -1,17 +1,109 @@
+<html op="news">
+<head>
+  <title>Empo News</title>
+</head>
+<body>
+<div align="center">
+  <table id="hnmain" border="0" cellpadding="0" cellspacing="0" width="85%" bgcolor="#f6f6ef">
+    <tr id="pagespace" title="Profile: "{{ userSelected.username }} style="height:10px"></tr>
+    <tr>
+      <td>
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr>
+            <td bgcolor="#ffffaa"><table cellpadding="5" width="100%">
+            </table></td>
+          </tr>
+        </table>
+        <form method="post" action="">
+          <table>
+            <tr>
+              <td valign="top">user:</td>
+              <td>
+                <a routerLink="/user_page/{{user.username}}">{{ user.username }}</a>
+              </td>
+            </tr>
+            <tr>
+              <td valign="top">created:</td>
+              <td>{{ user.date_joined }}</td>
+            </tr>
+            <tr><td valign="top">karma:</td>
+              <td>{{ user.karma }}</td>
+            </tr>
+            <tr *ngIf userSelected == request.user %}>
+              <td valign="top">api key: </td>
+              <td>{{ apikey }}</td>
+            <tr>
+              <td valign="top">about:</td>
+                <input [(ngModel)]="user.about" placeholder="about"/>
+            </tr>
+            <tr>
+              <td valign="top">email:</td>
+              <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+              <td valign="top">showdead:</td>
+              <td>{{ user.showdead }}</td>
+            </tr>
+            <tr>
+              <td valign="top">noprocrast:</td>
+              <td>{{ user.noprocrast }}</td>
+            </tr>
+            <tr>
+              <td valign="top">maxvisit:</td>
+              <td>{{ user.maxvisit }}</td>
+            </tr>
+            <tr>
+              <td valign="top">minaway:</td>
+              <td>{{ user.minaway }}</td>
+            </tr>
+            <tr>
+              <td valign="top">delay:</td>
+              <td>{{ user.delay }}</td>
+            </tr>
 
-<div>
-  <h2> Comment:</h2>
-  <h3>{{comment.id}}</h3>
-  <h3>{{comment.user}}</h3>
-  <h3>{{comment.title}}</h3>
-  <h3>{{comment.url}}</h3>
-  <h3>{{comment.text}}</h3>
-  <h3>{{comment.publication_time}}</h3>
-  <h3>{{comment.comments}}</h3>
-  <h3>{{comment.points}}</h3>
-  <h3>{{comment.hidden}}</h3>
-  <h3>{{comment.liked}}</h3>
-  <h3>{{comment.show}}</h3>
-  <h3>{{comment.contribution}}</h3>
-  <h3>{{comment.parent}}</h3>
+            <tr><td valign="top">about:</td>
+              <td>{{ user.about }}</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>
+                <a href="{% url 'empo_news:submitted' %}?username={{ user.username }}" >
+                  <u>submissions</u>
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>
+                <a routerLink="/threads/{{user.username}}">
+                <u>comments</u>
+                </a>
+              </td>
+            </tr>
+            <tr *ngIf userSelected == request.user %}>
+              <td>
+                <a routerLink="/hidden/{{user.username}}">
+                <u>hidden</u>
+                </a>
+              </td>
+            <tr>
+              <td></td>
+              <td>
+                <a routerLink="/voted_submissions">
+                <u>	upvoted submissions</u>
+                </a> /
+                <a routerLink="/voted_comments">
+                <u>	comments</u>
+                </a>
+                <i>  (private)</i>
+              </td>
+            </tr>
+            <td valign="top"><input type="submit" value="Update" name="update_button" style="margin-left: 0px; margin-top: 5px; margin-bottom: 10px"/></td>
+          </table>
+        </form>
+        <br><br>
+      </td></tr>
+  </table>
 </div>
+</body>
+</html>
