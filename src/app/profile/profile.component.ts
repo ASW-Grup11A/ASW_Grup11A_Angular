@@ -1,12 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {User} from '../interfaces/user';
-import {UserService} from '../services/user.service';
-import {UtilitiesService} from '../services/utilities.service';
-import {HttpParams} from '@angular/common/http';
-import {ContributionService} from '../services/contribution.service';
-import {Contribution} from '../interfaces/contribution';
-import {Comment} from '../interfaces/comment';
-import {CommentService} from '../services/comment.service';
+import { User } from "../interfaces/user";
+import { ActivatedRoute, Router } from "@angular/router";
+import { UserService } from "../services/user.service";
+import {HttpParams} from "@angular/common/http";
+import { Location } from "@angular/common"
 
 @Component({
   selector: 'app-profile',
@@ -14,64 +11,42 @@ import {CommentService} from '../services/comment.service';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  user: User;
-  contribution: Contribution;
-  comment: Comment;
+  @Input() user: User;
+  apikey: string;
+  email: string;
 
   constructor(
+    private route: ActivatedRoute,
+    private router: Router,
     private userService: UserService,
-    private contributionService: ContributionService,
-    private commentService: CommentService
+    private location: Location
   ) {
   }
 
   ngOnInit(): void {
-    // this.voteContribution();
-    // this.getUser();
-    // this.deleteContribution();
-    // this.createContribution();
-    // this.createComment();
-    this.getComment();
-    const apiKey = UtilitiesService.createApiKey({username: 'albert.pinto', email: 'albert.pinto@estudiantat.upc.edu'});
-    console.log(`Api Key: ${apiKey}`);
+    this.getUser();
   }
 
-  private getUser() {
-    this.userService.getUserProfile('sgmarcsg').subscribe(user => this.user = user);
+  getUser() {
+    const username = this.route.snapshot.paramMap.get('username');
+    this.apikey = 'eGF2aWNhbXBvczk5eGF2aWNhbXBvczk5QGdtYWlsLmNvbTE=';
+    this.userService.getUserProfile(username)
+      .subscribe(user => this.user = user);
+    this.email = 'xavicampos99@gmail.com'
   }
 
-  private updateAbout() {
-    let params: HttpParams = new HttpParams();
-    params = params.append('about', 'I love Minekraft');
+  goBack(): void {
+    this.location.back();
+  }
+
+  updateUserProfile() {
+    let params = new HttpParams();
+    params = params.append('about', this.user.about);
+    params = params.append('showdead', this.user.showdead.toString());
+    params = params.append('noprocrast', this.user.noprocrast.toString());
+    params = params.append('maxvisit', this.user.maxvisit.toString());
+    params = params.append('minaway', this.user.minaway.toString());
+    params = params.append('delay', this.user.delay.toString());
     this.userService.updateUserProfile(params).subscribe(user => this.user = user);
-  }
-
-  private createContribution() {
-    const params: HttpParams = new HttpParams();
-    const body: object = {
-      title: 'I love Minekraft',
-      url: 'http://mecagoentusmuertos.com/albert'
-    };
-    this.contributionService.createContribution(body).subscribe(
-      contribution => this.contribution = contribution);
-  }
-
-  private deleteContribution() {
-    this.contributionService.deleteContribution('1').subscribe();
-  }
-
-  private voteContribution() {
-    this.contributionService.voteContribution('24').subscribe();
-  }
-
-  private createComment() {
-    const body: object = {
-      text: 'I do really love love love love Minekraft'
-    };
-    this.commentService.createComment('24', body).subscribe(comment => this.comment = comment);
-  }
-
-  private getComment() {
-    this.commentService.getComment('34').subscribe(comment => this.comment = comment);
   }
 }
