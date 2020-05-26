@@ -40,14 +40,13 @@ export class ProfileComponent implements OnInit {
   }
 
   updateUserProfile() {
-    const params = new HttpParams();
-    params.append('about', this.user.about);
-    params.append('showdead', this.user.showdead.toString());
-    params.append('noprocrast', this.user.noprocrast.toString());
-    params.append('maxvisit', this.user.maxvisit.toString());
-    params.append('minaway', this.user.minaway.toString());
-    params.append('delay', this.user.delay.toString());
-    console.log(params)
+    let params = new HttpParams();
+    params = params.append('about', this.user.about);
+    params = params.append('showdead', this.user.showdead.toString());
+    params = params.append('noprocrast', this.user.noprocrast.toString());
+    params = params.append('maxvisit', this.user.maxvisit.toString());
+    params = params.append('minaway', this.user.minaway.toString());
+    params = params.append('delay', this.user.delay.toString());
     this.userService.updateUserProfile(params).subscribe(user => this.user = user);
   }
 }
