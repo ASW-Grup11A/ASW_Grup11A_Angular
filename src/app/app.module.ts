@@ -10,11 +10,15 @@ import { getAuthServiceConfigs } from './socialloginConfig';
 import {AppComponent} from './app.component';
 import {FormsModule} from "@angular/forms";
 import { ProfileComponent } from './profile/profile.component';
+import { NotImplementedComponent } from './not-implemented/not-implemented.component';
+import { MainPageComponent } from './main-page/main-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProfileComponent,
+    NotImplementedComponent,
+    MainPageComponent,
   ],
   imports: [
     SocialLoginModule,
