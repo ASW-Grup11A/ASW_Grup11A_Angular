@@ -65,15 +65,15 @@
               </div>
               <tr>
                 <td valign="top" style="width: 80px">maxvisit:</td>
-                <td><input [(ngModel)]="user.maxvisit" value="{{user.maxvisit}}" size="10"/></td>
+                <td><input name="maxvisit" [(ngModel)]="user.maxvisit" value="{{user.maxvisit}}" size="10"/></td>
               </tr>
               <tr>
                 <td valign="top">minaway:</td>
-                <td><input [(ngModel)]="user.minaway" value="{{user.minaway}}" size="10"/></td>
+                <td><input name="minaway" [(ngModel)]="user.minaway" value="{{user.minaway}}" size="10"/></td>
               </tr>
               <tr>
                 <td valign="top">delay:</td>
-                <td><input [(ngModel)]="user.delay" value="{{user.delay}}" size="10"/></td>
+                <td><input name="delay" [(ngModel)]="user.delay" value="{{user.delay}}" size="10"/></td>
               </tr>
             </div>
             <div *ngIf="!user.minaway">
@@ -121,7 +121,7 @@
                   <i>  (private)</i>
                 </td>
               </tr>
-              <td valign="top"><input type="submit" value="Update" name="update_button" style="margin-left: 0px; margin-top: 5px; margin-bottom: 10px"/></td>
+              <button (click)="updateUserProfile()">Update</button>
             </div>
           </table>
         </form>

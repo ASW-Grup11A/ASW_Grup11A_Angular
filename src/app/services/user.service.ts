@@ -33,6 +33,7 @@ export class UserService {
   }
 
   updateUserProfile(paramsToUpdate: HttpParams): Observable<User> {
+    console.log(paramsToUpdate);
     return this.http.put(this.url, {}, {
       headers: this.headers,
       observe: 'body',
