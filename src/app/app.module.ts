@@ -12,6 +12,7 @@ import {FormsModule} from "@angular/forms";
 import { ProfileComponent } from './profile/profile.component';
 import { NotImplementedComponent } from './not-implemented/not-implemented.component';
 import { MainPageComponent } from './main-page/main-page.component';
+import { ThreadsComponent } from './threads/threads.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { MainPageComponent } from './main-page/main-page.component';
     ProfileComponent,
     NotImplementedComponent,
     MainPageComponent,
+    ThreadsComponent,
   ],
   imports: [
     SocialLoginModule,
