@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { UserService } from "../services/user.service";
 import {HttpParams} from "@angular/common/http";
 import { Location } from "@angular/common"
+import {ApiKeyManagerService} from "../services/api-key-manager.service";
+import {UtilitiesService} from "../services/utilities.service";
 
 @Component({
   selector: 'app-profile',
@@ -19,7 +21,8 @@ export class ProfileComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private userService: UserService,
-    private location: Location
+    private location: Location,
+    private apiKeyManager: ApiKeyManagerService
   ) {
   }
 
@@ -27,7 +30,7 @@ export class ProfileComponent implements OnInit {
     this.getUser();
   }
 
-  getUser() {
+  getUser():void {
     const username = this.route.snapshot.paramMap.get('username');
     this.apikey = 'eGF2aWNhbXBvczk5eGF2aWNhbXBvczk5QGdtYWlsLmNvbTE=';
     this.userService.getUserProfile(username)

@@ -1,1 +1,53 @@
-<p>threads works!</p>
+<p>Threads of {{this.username}}</p>
+
+<table>
+  <div *ngFor="let comment of comments ">
+    <tr>
+      <td valign="top" style="width: 80px">comments:</td>
+      <td>{{comment.comments}}</td>
+    </tr>
+    <tr>
+      <td valign="top" style="width: 80px">contribution:</td>
+      <td>{{comment.contribution}}</td>
+    </tr>
+    <tr>
+      <td valign="top" style="width: 80px">hidden:</td>
+      <td>{{comment.hidden}}</td>
+    </tr>
+    <tr>
+      <td valign="top" style="width: 80px">id:</td>
+      <td>{{comment.id}}</td>
+    </tr>
+    <tr>
+      <td valign="top" style="width: 80px">liked:</td>
+      <td>{{comment.liked}}</td>
+    </tr>
+    <tr>
+      <td valign="top" style="width: 80px">parent:</td>
+      <td>{{comment.parent}}</td>
+    </tr>
+    <tr>
+      <td valign="top" style="width: 80px">points:</td>
+      <td>{{comment.points}}</td>
+    </tr>
+    <tr>
+      <td valign="top" style="width: 80px">publication time:</td>
+      <td>{{comment.publication_time}}</td>
+    </tr>
+    <tr>
+      <td valign="top" style="width: 80px">show:</td>
+      <td>{{comment.show}}</td>
+    </tr>
+    <tr>
+      <td valign="top" style="width: 80px">text:</td>
+      <td>{{comment.text}}</td>
+    </tr>
+    <tr>
+      <td valign="top" style="width: 80px">user:</td>
+      <td>{{comment.user}}</td>
+    </tr>
+    <div>
+      <td>-------------------------------------------------------------------------------------------------------------</td>
+    </div>
+  </div>
+</table>
