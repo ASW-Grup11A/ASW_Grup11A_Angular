@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {Comment} from "../interfaces/comment";
-import {ActivatedRoute, Router} from "@angular/router";
-import {Location} from "@angular/common";
-import {CommentService} from "../services/comment.service";
-import {HttpParams} from "@angular/common/http";
+import { Contribution} from "../interfaces/contribution";
+import { Comment } from "../interfaces/comment";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Location } from "@angular/common";
+import { CommentService } from "../services/comment.service";
+import { HttpParams } from "@angular/common/http";
 
 @Component({
   selector: 'app-threads',
