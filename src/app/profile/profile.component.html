@@ -24,7 +24,7 @@
               </tr>
               <tr>
                 <td valign="top">created:</td>
-                <td>{{ user.date_joined }}</td>
+                <td>{{ user.date_joined | dateAgo}}</td>
               </tr>
               <tr><td valign="top">karma:</td>
                 <td>{{ user.karma }}</td>

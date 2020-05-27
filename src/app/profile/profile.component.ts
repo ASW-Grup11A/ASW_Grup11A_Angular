@@ -3,7 +3,6 @@ import { User } from "../interfaces/user";
 import { ActivatedRoute, Router } from "@angular/router";
 import { UserService } from "../services/user.service";
 import {HttpParams} from "@angular/common/http";
-import { Location } from "@angular/common"
 import {ApiKeyManagerService} from "../services/api-key-manager.service";
 import {UtilitiesService} from "../services/utilities.service";
 
@@ -21,7 +20,6 @@ export class ProfileComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private userService: UserService,
-    private location: Location,
     private apiKeyManager: ApiKeyManagerService
   ) {
   }
@@ -36,10 +34,6 @@ export class ProfileComponent implements OnInit {
     this.userService.getUserProfile(username)
       .subscribe(user => this.user = user);
     this.email = 'xavicampos99@gmail.com'
-  }
-
-  goBack(): void {
-    this.location.back();
   }
 
   updateUserProfile() {
