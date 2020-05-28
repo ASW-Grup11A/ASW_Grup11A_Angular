@@ -1,17 +1,133 @@
+<html op="news">
+<head>
+  <title>Empo News</title>
+</head>
+<body>
+<div align="center">
+  <table id="hnmain" border="0" cellpadding="0" cellspacing="0" width="85%" bgcolor="#f6f6ef">
+    <tr id="pagespace" title="Profile: " user.username style="height:10px"></tr>
+    <tr>
+      <td>
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr>
+            <td bgcolor="#ffffaa"><table cellpadding="5" width="100%">
+            </table></td>
+          </tr>
+        </table>
 
-<div>
-  <h2> Comment:</h2>
-  <h3>{{comment.id}}</h3>
-  <h3>{{comment.user}}</h3>
-  <h3>{{comment.title}}</h3>
-  <h3>{{comment.url}}</h3>
-  <h3>{{comment.text}}</h3>
-  <h3>{{comment.publicationTime}}</h3>
-  <h3>{{comment.comments}}</h3>
-  <h3>{{comment.points}}</h3>
-  <h3>{{comment.hidden}}</h3>
-  <h3>{{comment.liked}}</h3>
-  <h3>{{comment.show}}</h3>
-  <h3>{{comment.contribution}}</h3>
-  <h3>{{comment.parent}}</h3>
+        <form method="post" action="" class="form-horizontal">
+          <table>
+            <div >
+              <tr>
+                <td valign="top" style="width: 80px">user:</td>
+                <td><a routerLink="/user_page/{{user.username}}">{{ user.username }}</a></td>
+              </tr>
+              <tr>
+                <td valign="top">created:</td>
+                <td>{{ user.date_joined | dateAgo}}</td>
+              </tr>
+              <tr><td valign="top">karma:</td>
+                <td>{{ user.karma }}</td>
+              </tr>
+            </div>
+            <div *ngIf="user.minaway">
+              <tr>
+                <td valign="top" style="width: 80px">api key:</td>
+                <td>{{ apikey }}</td>
+              </tr>
+              <tr>
+                <td valign="top">about:</td>
+                <td>
+                    <textarea type="text" name="about" class="form-control" id="about.input"
+                              placeholder="{{user.about}}" [(ngModel)]="user.about" rows="5" cols="56">
+                    </textarea>
+                </td>
+              </tr>
+              <tr>
+                <td valign="top">email:</td>
+                <td>{{ email }}</td>
+              </tr>
+              <div class="form-group">
+                <td style="width: 80px"><label for="showdead">showdead:</label>
+                <td><select id="showdead" name="showdead"
+                        [(ngModel)]="user.showdead" class="form-control">
+                  <option value="false" [selected]="false=== user.showdead">no</option>
+                  <option value="true" [selected]="true=== user.showdead">yes</option>
+                </select></td>
+              </div>
+              <div class="form-group">
+                <td style="width: 80px"><label for="noprocrast">noprocrast:</label>
+                <td><select id="noprocrast" name="noprocrast"
+                            [(ngModel)]="user.noprocrast" class="form-control">
+                  <option value="false" [selected]="false=== user.noprocrast">no</option>
+                  <option value="true" [selected]="true=== user.noprocrast">yes</option>
+                </select></td>
+              </div>
+              <tr>
+                <td valign="top" style="width: 80px">maxvisit:</td>
+                <td><input name="maxvisit" [(ngModel)]="user.maxvisit" value="{{user.maxvisit}}" size="10"/></td>
+              </tr>
+              <tr>
+                <td valign="top">minaway:</td>
+                <td><input name="minaway" [(ngModel)]="user.minaway" value="{{user.minaway}}" size="10"/></td>
+              </tr>
+              <tr>
+                <td valign="top">delay:</td>
+                <td><input name="delay" [(ngModel)]="user.delay" value="{{user.delay}}" size="10"/></td>
+              </tr>
+            </div>
+            <div *ngIf="!user.minaway">
+              <tr>
+                <td valign="top" style="width: 80px">about:</td>
+                <td>{{ user.about }}</td>
+              </tr>
+            </div>
+            <div>
+              <tr>
+                <td style="width: 80px"></td>
+                <td>
+                  <a [routerLink]="['/submitted']" [queryParams]="{username:user.username}">
+                    <u>submissions</u>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>
+                  <a routerLink="/threads/{{user.username}}">
+                    <u>comments</u>
+                  </a>
+                </td>
+              </tr>
+            </div>
+            <div *ngIf="user.minaway">
+              <tr>
+                <td style="width: 80px"></td>
+                <td>
+                  <a routerLink="/hidden/{{user.username}}">
+                    <u>hidden</u>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>
+                  <a routerLink="/voted_submissions/">
+                    <u>	upvoted submissions</u>
+                  </a> /
+                  <a routerLink="/voted_comments/">
+                    <u>	comments</u>
+                  </a>
+                  <i>  (private)</i>
+                </td>
+              </tr>
+              <button (click)="updateUserProfile()">Update</button>
+            </div>
+          </table>
+        </form>
+        <br><br>
+      </td></tr>
+  </table>
 </div>
+</body>
+</html>

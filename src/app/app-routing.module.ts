@@ -1,15 +1,23 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {ProfileComponent} from './profile/profile.component';
+import { NgModule} from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { ProfileComponent} from './profile/profile.component';
+import { MainPageComponent} from './main-page/main-page.component';
+import { NotImplementedComponent} from './not-implemented/not-implemented.component';
+import { ThreadsComponent } from './threads/threads.component';
 import {SubmitComponent} from './submit/submit.component';
 
 const routes: Routes = [
-    {path: '', component: ProfileComponent},
-    {path: 'submit', component: SubmitComponent},
+  { path: '', component: MainPageComponent},
+  { path: 'user_page/:username', component: ProfileComponent},
+  { path: 'threads/:username', component: ThreadsComponent},
+  { path: '**', component: NotImplementedComponent},
+  {path: 'submit', component: SubmitComponent}
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {
+    onSameUrlNavigation: 'reload'
+  })],
   exports: [RouterModule]
 })
 export class AppRoutingModule {
