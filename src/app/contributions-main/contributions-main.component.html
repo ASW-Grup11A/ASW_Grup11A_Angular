@@ -1,0 +1,113 @@
+<body>
+<div align="center">
+  <table id="hnmain" border="0" cellpadding="0" cellspacing="0" width="85%" bgcolor="#f6f6ef">
+
+    <app-top-bar [highlight]="highlight"></app-top-bar>
+
+    <ng-container *ngFor="let contr of allContributions">
+      <p>Hola</p>
+      <p>{{contr.id}}</p>
+    </ng-container>
+    <tr>
+
+      <td>
+        <table border="0" cellpadding="0" cellspacing="0" class="itemlist">
+          <a *ngIf="highlight == 'show_list'" style="padding: 20px">Show ENs can be found via show in the top bar. To post one yourself,
+            simply submit a story whose title begins with "Show EN: ".</a>
+          <tr *ngIf="highlight == 'show_list'" class="morespace" style="height:10px"></tr>
+
+          <ng-container *ngFor="let contribution of allContributions">
+            <tr class='athing' id='{{ contribution.id }}'>
+              <td align="right" valign="top" class="title"><span class="rank">{{ incrementDisplayIndex() }}.</span></td>
+              <td valign="top" class="votelinks">
+                <div align="center">
+                  <ng-container *ngIf='contribution.user != user.username; else myContribution'>
+                    <ng-container *ngIf='contribution.liked; else notLiked'>
+                      <a id='up_{{ contribution.id }}' (click)="voteContribution(contribution.id)">
+                        <div class='votearrow' title='upvote'></div>
+                      </a>
+                    </ng-container>
+                    <ng-container #notLiked>
+                      <div class='votearrow' title='upvote' style="opacity: 0" ></div>
+                    </ng-container>
+                  </ng-container>
+                  <ng-container #myContribution>
+                    <span style="color: #ff0080;">*</span>
+                  </ng-container>
+                </div>
+              </td>
+              <td class="title">
+                <ng-container *ngIf='contribution.url==null; else urlContribution'>
+                  <a href="{% url 'empo_news:item'%}?id={{ contribution.id }}" class="storylink">{{ contribution.title }}</a>
+                </ng-container>
+                <ng-container #urlContribution>
+                  <a href="{{ contribution.url }}" class="storylink">{{ contribution.title }}</a>
+                </ng-container>
+
+                <span class="sitebit comhead">
+                  <ng-container #urlContribution>
+                      (<span class="sitestr">{{ contribution.url }}</span>)
+                  </ng-container>
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2"></td>
+              <td class="subtext">
+                             <span class="score">
+                                 {{ contribution.points }}
+                               point
+                               <ng-container *ngIf="contribution.points!=1">
+                                  s
+                               </ng-container>
+                               by
+                             </span>
+                <a routerLink="/profile/{{user.username}}" class="hnuser" > {{ contribution.user }} </a>
+                <span class="age">
+                  <a href="{% url 'empo_news:item'%}?id={{ contribution.id }}" >{{ naturaltime(contribution.publication_time) }}</a>
+                </span>
+                <span id="unv_{{ contribution.id }}"></span> |
+                <ng-container *ngIf='!contribution.liked && contribution.user!=user.username'>
+                  <a (click)="unvoteContribution(contribution.id)">unvote</a> |
+                </ng-container>
+
+                <ng-container *ngIf='contribution.hidden; else notHidden'>
+                  <a (click)="unhideContribution(contribution.id)">un-hide</a> |
+                </ng-container>
+                <ng-container #notHidden>
+                  <a (click)="hideContribution(contribution.id)">hide</a> |
+                </ng-container>
+
+                <a (click)="googleSearch(contribution.title)" *ngIf="highlight=='new'"> web </a> |
+
+                <ng-container *ngIf='contribution.comments == 0; else withComments'>
+                  <a href="{% url 'empo_news:item'%}?id={{ contribution.id }}">discuss</a>
+                </ng-container>
+                <ng-container #withComments>
+                  <a href="{% url 'empo_news:item'%}?id={{ contribution.id }}">{{ contribution.comments }}
+                    comment
+                    <ng-container *ngIf="contribution.comments>1">s</ng-container>
+                  </a>
+                </ng-container>
+              </td>
+            </tr>
+            <tr class="spacer" style="height:5px"></tr>
+          </ng-container>
+
+          <tr class="morespace" style="height:10px"></tr>
+          <tr><td colspan="2"></td><td class="title">
+            <ng-container *ngIf="more">
+              <a (click)="clickMore()">More</a>
+            </ng-container>
+          </td></tr>
+          <tr class="morespace" style="height:10px"></tr>
+        </table>
+      </td>
+
+    </tr>
+
+    <app-bottom-bar></app-bottom-bar>
+
+  </table>
+</div>
+</body>

@@ -12,13 +12,17 @@ import {
 import { getAuthServiceConfigs } from './socialloginConfig';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { ListContributionsComponent } from './list-contributions/list-contributions.component';
+import { BottomBarComponent } from './bottom-bar/bottom-bar.component';
+import { ContributionsMainComponent } from './contributions-main/contributions-main.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProfileComponent,
     TopBarComponent,
-    ListContributionsComponent
+    ListContributionsComponent,
+    BottomBarComponent,
+    ContributionsMainComponent
   ],
   imports: [
     SocialLoginModule,

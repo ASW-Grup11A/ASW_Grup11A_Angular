@@ -8,14 +8,20 @@ import {ContributionService} from "../services/contribution.service";
   styleUrls: ['./list-contributions.component.css']
 })
 export class ListContributionsComponent implements OnInit {
-  @Input() filter: String;
+  @Input() userSelected: String;
+  highlight: String;
 
   constructor(
-    private route: ActivatedRoute,
-    private contributionService: ContributionService
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+    console.log("Start");
+    console.log(this.route);
+    console.log("End");
+    this.userSelected = this.route.snapshot.paramMap.get('userSelected');
+    this.userSelected = this.route.outlet;
+    this.highlight= "newest";
   }
 
 }
