@@ -1,12 +1,13 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder} from '@angular/forms';
-import {ContributionService} from '../services/contribution.service';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { ContributionService } from '../services/contribution.service';
 
 @Component({
     selector: 'app-submit',
     templateUrl: './submit.component.html',
     styleUrls: ['./submit.component.css'],
 })
+
 export class SubmitComponent implements OnInit {
     form;
     error = '';
@@ -25,7 +26,7 @@ export class SubmitComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    onClick(params: {title: string, url: string, text: string}): void {
+    onClick(params: { title: string, url: string, text: string }): void {
         if (this.isValid(params)) {
             this.error = '';
             this.form.reset();
@@ -33,7 +34,7 @@ export class SubmitComponent implements OnInit {
         }
     }
 
-    private isValid(params: {title: string, url: string, text: string}): boolean {
+    private isValid(params: { title: string, url: string, text: string }): boolean {
         if (params.title === null || params.title === '') {
             this.error = 'The title cannot be empty.';
             return false;
