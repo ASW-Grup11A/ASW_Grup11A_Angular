@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {Observable, of} from 'rxjs';
+import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from '@angular/common/http';
+import {Observable, of, throwError} from 'rxjs';
 import {Contribution} from '../interfaces/contribution';
 import {catchError} from 'rxjs/operators';
 import {ApiKeyManagerService} from './api-key-manager.service';

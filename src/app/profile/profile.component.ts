@@ -12,7 +12,7 @@ import {ApiKeyManagerService} from '../services/api-key-manager.service';
 })
 export class ProfileComponent implements OnInit {
   @Input() user: User;
-  apikey: string;
+  apiKey: string;
   email: string;
 
   constructor(
@@ -29,7 +29,7 @@ export class ProfileComponent implements OnInit {
 
   getUser(): void {
     const username = this.route.snapshot.paramMap.get('username');
-    this.apikey = 'eGF2aWNhbXBvczk5eGF2aWNhbXBvczk5QGdtYWlsLmNvbTE=';
+    this.apiKey = 'eGF2aWNhbXBvczk5eGF2aWNhbXBvczk5QGdtYWlsLmNvbTE=';
     this.userService.getUserProfile(username)
       .subscribe(user => this.user = user);
     this.email = 'xavicampos99@gmail.com';

@@ -1,0 +1,175 @@
+<div align="center">
+    <table id="hnmain" border="0" cellpadding="0" cellspacing="0" width="85%" bgcolor="#f6f6ef">
+        <tr id="pagespace" title style="height:10px"></tr>
+        <tr>
+            <td>
+                <table class="fatitem" border="0">
+                    <ng-template [ngIf]="contribution.title !== null" [ngIfElse]="displayComment">
+                        <tr class='athing' id="{{ contribution.id }}">
+                            <td align="right" valign="top" class="title">
+                                <span class="rank"></span>
+                            </td>
+                            <td valign="top" class="votelinks" style="text-align: center;">
+                                <span *ngIf="user === contribution.user_id" style="color: #ff0080; ">*</span>
+                                <div *ngIf="contribution.liked && user !== contribution.user_id" class='votearrow'
+                                     title='upvote'
+                                     style="opacity: 0">aaa
+                                </div>
+                                <a *ngIf="!contribution.liked && user !== contribution.user_id" id="{{'up_' + contribution.id}}"
+                                   (click)="upVoteContribution(contribution.id)">
+                                    <div class='votearrow' title='upvote'></div>
+                                </a>
+                            </td>
+                            <td class="title">
+                                <ng-template [ngIf]="contribution.url !== null" [ngIfElse]="hideUrl">
+                                    <a href="{{contribution.url}}"
+                                       class="storylink">{{ contribution.title }}</a>
+                                </ng-template>
+                                <ng-template #hideUrl>
+                                    <a routerLink="/item?id={{ contribution.id }}"
+                                       class="storylink">{{ contribution.title }}</a>
+                                </ng-template>
+
+                                <span *ngIf="contribution.url != null" class="sitebit comhead">
+                    (<span class="sitestr">{{ contribution.url }}</span>)
+                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td class="subtext">
+                <span class="score" id="score_{{ contribution.id }}">
+                    {{contribution.points}}
+                    <ng-template [ngIf]="contribution.points === 1" [ngIfElse]="points">
+                            point
+                    </ng-template>
+                    <ng-template #points>
+                            points
+                    </ng-template>
+                         by
+                </span>
+                                <a routerLink="/profile/{{contribution.user_id}}"
+                                   class="hnuser">{{contribution.user_id}}</a>
+                                <span class="age">{{ contribution.publication_time|dateAgo }}</span>
+                                <span id="unv_{{ contribution.id }}">
+                     <ng-template [ngIf]="contribution.liked && contribution.user_id !== user">
+                          |
+                    <a id="unv_{{contribution.id }}" (click)="unvoteContribution(contribution.id)">
+                        unvote
+                    </a></ng-template>
+                </span>
+                                <ng-template [ngIf]="contribution.hidden" [ngIfElse]="showHide">
+                                    | <a (click)="unhideContribution(contribution.id)">un-hide</a>
+                                </ng-template>
+                                <ng-template #showHide>
+                                    | <a (click)="hideContribution(contribution.id)">hide</a>
+                                </ng-template>
+                                | <a (click)="searchInGoogle(contribution.title)">web</a>
+                                |
+                                <ng-template [ngIf]="contribution.comments === 0" [ngIfElse]="showNumComments">
+                                    <a routerLink="/items?id={{contribution.id}}">discuss</a>
+                                </ng-template>
+                                <ng-template #showNumComments>
+                                    <a routerLink="/items?id={{contribution.id}}">
+                                        {{ contribution.comments }}
+                                        <ng-template [ngIf]="contribution.points === 1" [ngIfElse]="comments">
+                                            comment
+                                        </ng-template>
+                                        <ng-template #comments>
+                                            comments
+                                        </ng-template>
+                                    </a>
+                                </ng-template>
+                            </td>
+                        </tr>
+                        <tr style="height:2px"></tr>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td>{{ contribution.text }}</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template #displayComment>
+                        <tr class='athing' id='{{ comment.id }}'>
+                            <td align="right" valign="top" class="title">
+                                <span class="rank"></span>
+                            </td>
+                            <td valign="top" class="votelinks" style="text-align: center;">
+                                <ng-template [ngIf]="user === comment.user_id" [ngIfElse]="checkCommentLiked">
+                                    <span *ngIf="user === comment.user_id" style="color: #ff0080; ">*</span>
+                                </ng-template>
+                                <ng-template #checkCommentLiked [ngIf]="comment.liked" [ngIfElse]="unvotedComment">
+                                    <div class='votearrow' title='upvote' style="opacity: 0"></div>
+                                </ng-template>
+                                <ng-template #unvotedComment [ngIf]="user !== null">
+                                    <a id="{{'up_' + comment.id}}" (click)="upVoteContribution(comment.id)">
+                                        <div class='votearrow' title='upvote'></div>
+                                    </a>
+                                </ng-template>
+                            </td>
+                            <td class="default">
+                                <div>
+                    <span class="comhead">
+                        <a routerLink="/profile/{{contribution.user_id}}">
+                            {{ comment.user_id }}
+                        </a>
+                        <span class="age">
+                            <a routerLink="/item?id={{ comment.id }}">
+                                {{ comment.publication_time|dateAgo }}
+                            </a>
+                        </span>
+                        <span id="unv_{{ comment.id }}"></span>
+                        <span class="par">
+                             |
+                            <ng-template [ngIf]="comment.parent === null" [ngIfElse]="routeToParent">
+                                <a routerLink="/item?id={{ comment.contribution }}">
+                                     parent
+                                </a>
+                            </ng-template>
+                            <ng-template #routeToParent>
+                                <a routerLink="/item?id={{ comment.parent }}">
+                                     parent
+                                </a>
+                            </ng-template>
+                        </span>
+                        <span class="storyon">
+                             | on:
+                            <a routerLink="/item?id={{ comment.contribution }}">
+                                {{ comment.contribution }}
+                            </a>
+                        </span>
+                    </span>
+                                </div>
+                                <br>
+                                <div class="comment">
+                            <span class="commtext c00">
+                                {{ comment.text }}
+                            </span>
+                                    <div class="reply"></div>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-container *ngIf="user !== contribution.user_id && user !== comment.user_id">
+                        <tr style="height:10px"></tr>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td>
+                                <form [formGroup]="form" (ngSubmit)="onClick(form.value)">
+                                    <textarea id="text" type="text" formControlName="text" cols="56"
+                                              rows="5"></textarea>
+                                    <br><br>
+                                    <ng-template [ngIf]="contribution.title != null" [ngIfElse]="isComment">
+                                        <input type="submit" value="add comment">
+                                    </ng-template>
+                                    <ng-template #isComment>
+                                        <input type="submit" value="reply">
+                                    </ng-template>
+                                </form>
+                            </td>
+                        </tr>
+                    </ng-container>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>

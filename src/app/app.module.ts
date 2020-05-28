@@ -13,6 +13,7 @@ import { NotImplementedComponent } from './not-implemented/not-implemented.compo
 import { MainPageComponent } from './main-page/main-page.component';
 import { ThreadsComponent } from './threads/threads.component';
 import { DateAgoPipe } from './pipes/date-ago.pipe';
+import { ItemComponent } from './item/item.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { DateAgoPipe } from './pipes/date-ago.pipe';
     MainPageComponent,
     ThreadsComponent,
     DateAgoPipe,
+    ItemComponent,
   ],
     imports: [
         SocialLoginModule,

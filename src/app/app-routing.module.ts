@@ -5,12 +5,14 @@ import { MainPageComponent} from './main-page/main-page.component';
 import { NotImplementedComponent} from './not-implemented/not-implemented.component';
 import { ThreadsComponent } from './threads/threads.component';
 import {SubmitComponent} from './submit/submit.component';
+import {ItemComponent} from './item/item.component';
 
 const routes: Routes = [
   { path: '', component: MainPageComponent},
   { path: 'user_page/:username', component: ProfileComponent},
   { path: 'threads/:username', component: ThreadsComponent},
   { path: 'submit', component: SubmitComponent},
+  { path: 'item', component: ItemComponent},
   { path: '**', component: NotImplementedComponent}
 ];
 

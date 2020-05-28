@@ -6,13 +6,14 @@ export class ContributionImpl implements Contribution{
   id: number;
   liked: boolean;
   points: number;
-  publicationTime: string;
+  // tslint:disable-next-line:variable-name
+  publication_time: string;
   show: boolean;
-  user: string;
+  // tslint:disable-next-line:variable-name
+  user_id: string;
   text: string;
   title: string;
   url: string;
-
 
   constructor(title: string, url: string, text: string) {
     this.text = text;

@@ -11,7 +11,7 @@ export class ApiKeyManagerService {
 
   get apiKey(): string {
     // return this.key;
-    return 'eGF2aWNhbXBvczk5eGF2aWNhbXBvczk5QGdtYWlsLmNvbTE=';
+    return 'c2FudGkubXlwZXRjYXJlc2FudGkubXlwZXRjYXJlQGdtYWlsLmNvbTE=';
   }
 
   set apiKey(value: string) {

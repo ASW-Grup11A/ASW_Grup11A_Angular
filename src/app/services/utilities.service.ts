@@ -47,4 +47,9 @@ export class UtilitiesService {
     }
     return params;
   }
+
+  static googleSearch(stringToSearch: string) {
+    const baseUrl = 'https://www.google.com/search?q=';
+    window.location.href = baseUrl + stringToSearch;
+  }
 }
