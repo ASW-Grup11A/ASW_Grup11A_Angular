@@ -26,10 +26,16 @@ export class AppComponent {
         .then((userData) => {
           this.apiKeyManagerService.apiKey = UtilitiesService.createApiKey(
             {username: userData.email.split('@')[0], email: userData.email});
+          this.apiKeyManagerService.username=userData.email.split('@')[0];
         });
     }
 
     goToPage(pageName: string): void{
       this.router.navigate([`${pageName}`]);
     }
+
+  notExistsKey() {
+      console.log("ApiKey: " + this.apiKeyManagerService.apiKey);
+    return this.apiKeyManagerService.apiKey=="";
+  }
 }

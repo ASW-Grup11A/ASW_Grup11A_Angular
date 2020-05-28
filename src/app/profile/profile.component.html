@@ -33,7 +33,7 @@
             <div *ngIf="user.minaway">
               <tr>
                 <td valign="top" style="width: 80px">api key:</td>
-                <td>{{ apikey }}</td>
+                <td>{{ apiKeyManager.apiKey }}</td>
               </tr>
               <tr>
                 <td valign="top">about:</td>
@@ -45,7 +45,7 @@
               </tr>
               <tr>
                 <td valign="top">email:</td>
-                <td>{{ email }}</td>
+                <td>{{ user.email }}</td>
               </tr>
               <div class="form-group">
                 <td style="width: 80px"><label for="showdead">showdead:</label>
