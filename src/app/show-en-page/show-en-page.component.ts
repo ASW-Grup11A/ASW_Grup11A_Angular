@@ -5,6 +5,7 @@ import {UserService} from "../services/user.service";
 import {ContributionService} from "../services/contribution.service";
 import {Contribution} from "../interfaces/contribution";
 import {User} from "../interfaces/user";
+import {ApiKeyManagerService} from "../services/api-key-manager.service";
 
 @Component({
   selector: 'app-show-en-page',
@@ -19,7 +20,8 @@ export class ShowEnPageComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private userService: UserService,
-    private contributionService: ContributionService
+    private contributionService: ContributionService,
+    private apiKeyManager: ApiKeyManagerService
   ) { }
 
   ngOnInit(): void {
@@ -28,8 +30,7 @@ export class ShowEnPageComponent implements OnInit {
   }
 
   getUser():void {
-    let username = 'xavicampos99';
-    this.userService.getUserProfile(username)
+    this.userService.getUserProfile(this.apiKeyManager.username)
       .subscribe(user => this.user = user);
   }
 

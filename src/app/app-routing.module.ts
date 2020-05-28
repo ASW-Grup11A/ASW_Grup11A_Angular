@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from "@angular/router";
-import {ListContributionsComponent} from "./list-contributions/list-contributions.component";
 import {ProfileComponent} from "./profile/profile.component";
 import { NotImplementedComponent} from './not-implemented/not-implemented.component';
 import { ThreadsComponent } from './threads/threads.component';
@@ -11,6 +10,7 @@ import {MainListComponent} from "./main-list/main-list.component";
 import {ShowEnPageComponent} from "./show-en-page/show-en-page.component";
 import {AskListComponent} from "./ask-list/ask-list.component";
 import {VotedSubmissionsListComponent} from "./voted-submissions-list/voted-submissions-list.component";
+import {NewListComponent} from "./new-list/new-list.component";
 
 
 const routes: Routes = [
@@ -20,9 +20,7 @@ const routes: Routes = [
   { path: 'comments', component: CommentListComponent},
   { path: 'submitted', component: UserSubmissionsComponent},
   { path: 'submit', component: SubmitComponent},
-  {path: 'newest', component: ListContributionsComponent},
-  {path: 'threads/:userSelected', component: ListContributionsComponent},
-  {path: 'comments', component: ListContributionsComponent},
+  {path: 'newest', component: NewListComponent},
   {path: 'user_page/:username', component: ProfileComponent},
   { path: 'show_list', component: ShowEnPageComponent},
   { path: 'ask_list', component: AskListComponent},

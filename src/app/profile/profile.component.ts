@@ -41,4 +41,8 @@ export class ProfileComponent implements OnInit {
     params = params.append('delay', this.user.delay.toString());
     this.userService.updateUserProfile(params).subscribe(user => this.user = user);
   }
+
+  getApiKey() {
+    return this.apiKeyManager.apiKey;
+  }
 }

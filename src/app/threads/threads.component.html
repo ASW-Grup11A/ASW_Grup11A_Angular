@@ -18,7 +18,7 @@
               <div *ngFor="let comment of comments">
                 <div style="margin-top: 15px; margin-bottom: 2px">
                   <tr class="subtext">
-                    <td *ngIf="user.minaway; else notCurrent">
+                    <td *ngIf="currentUser==comment.user_id; else notCurrent">
                       <font color="#ff0080" size="3px">*</font>
                     </td>
                     <ng-template #notCurrent>
@@ -38,8 +38,8 @@
                       <a routerLink="/user_page/{{user.username}}">{{ user.username }}</a>
                     </td>
                     <td>{{comment.publication_time | dateAgo}}</td>
-                    <td *ngIf="comment.liked;"> | </td>
-                    <a *ngIf="comment.liked" (click)="unvoteComment(comment.id.toString())">unvote</a>
+                    <td *ngIf="comment.liked && currentUser!=comment.user_id"> | </td>
+                    <a *ngIf="comment.liked && currentUser!=comment.user_id" (click)="unvoteComment(comment.id.toString())">unvote</a>
                     <td>| </td>
                     <div *ngIf="comment.parent; else noParent">
                       <td>
@@ -59,8 +59,8 @@
                   <td style="width: 12px;" ></td>
                   <td>{{comment.text}}</td>
                 </tr>
-                <tr *ngIf="!user.minaway" style="height: 5px"></tr>
-                <tr *ngIf="!user.minaway" class="admin">
+                <tr *ngIf="currentUser!=comment.user_id" style="height: 5px"></tr>
+                <tr *ngIf="currentUser!=comment.user_id" class="admin">
                   <td style="width: 12px;" ></td>
                   <a style="text-decoration: underline" [routerLink]="['/reply']" [queryParams]="{id:comment.id}">reply</a>
                 </tr>

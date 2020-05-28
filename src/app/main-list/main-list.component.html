@@ -74,9 +74,6 @@
 
               <a *ngIf="user.username!=contribution.user_id" (click)="hideContribution(contribution.id.toString())"> hide </a>
               <td *ngIf="user.username!=contribution.user_id"> | </td>
-
-              <a (click)="googleSearch(contribution.title)"> web </a>
-              <td> | </td>
               <td>
                 <a [routerLink]="['/item']" [queryParams]="{id:contribution.id}">discuss
                 </a>

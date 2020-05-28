@@ -33,5 +33,4 @@ export class TopBarComponent implements OnInit {
   public changeHighlight(highlight: string): void {
     this.highlight = highlight;
   }
-
 }

@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../services/user.service";
 import {ContributionService} from "../services/contribution.service";
 import {HttpParams} from "@angular/common/http";
+import {ApiKeyManagerService} from "../services/api-key-manager.service";
 
 @Component({
   selector: 'app-new-list',
@@ -14,13 +15,14 @@ import {HttpParams} from "@angular/common/http";
 export class NewListComponent implements OnInit {
   contributions: Contribution[];
   user: User;
-  username: string="sgmarcsg";
+  username: string;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private userService: UserService,
-    private contributionService: ContributionService
+    private contributionService: ContributionService,
+    private apiKeyManager: ApiKeyManagerService
   ) { }
 
   ngOnInit(): void {
@@ -29,13 +31,14 @@ export class NewListComponent implements OnInit {
   }
 
   getUser():void {
+    this.username=this.apiKeyManager.username;
     this.userService.getUserProfile(this.username)
       .subscribe(user => this.user = user);
   }
 
   getContributions():void {
     let params = new HttpParams();
-    params = params.append("orderBy", "votes_desc");
+    params = params.append("orderBy", "publication_time_desc");
     // Hem d'obtenir soles les que no estan amagades
     this.contributionService.getAllContributions(params).subscribe(contributions =>
       this.contributions = contributions);
@@ -58,7 +61,7 @@ export class NewListComponent implements OnInit {
         this.contributions[i].points++;
       }
     }
-    this.sortContributionsByPoints();
+    this.sortContributionsByDate();
   }
 
   unvoteContribution(id:string):void {
@@ -69,7 +72,7 @@ export class NewListComponent implements OnInit {
         this.contributions[i].points--;
       }
     }
-    this.sortContributionsByPoints();
+    this.sortContributionsByDate();
   }
 
   hideContribution(id:string):void {
@@ -79,7 +82,7 @@ export class NewListComponent implements OnInit {
         delete this.contributions[i];
       }
     }
-    this.sortContributionsByPoints();
+    this.sortContributionsByDate();
   }
 
   unhideContribution(id:string):void {
@@ -89,17 +92,11 @@ export class NewListComponent implements OnInit {
         delete this.contributions[i];
       }
     }
-    this.sortContributionsByPoints();
+    this.sortContributionsByDate();
   }
 
-  sortContributionsByPoints () {
+  sortContributionsByDate () {
     this.contributions.sort(function (a: Contribution, b: Contribution) {
-      if (a.points>b.points) {
-        return -1;
-      }
-      if (a.points<b.points) {
-        return 1;
-      }
       if (a.publication_time>b.publication_time) {
         return -1;
       }

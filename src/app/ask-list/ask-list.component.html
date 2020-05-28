@@ -55,8 +55,8 @@
               <td> {{contribution.publication_time | dateAgo}} | </td>
               <td *ngIf="contribution.liked && contribution.user_id!=user.username"
                   (click)="unvoteContribution(contribution.id.toString())"> unvote | </td>
-              <a (click)="googleSearch(contribution.title)"> web </a>
-              <td> | </td>
+              <a *ngIf="user.username!=contribution.user_id" (click)="hideContribution(contribution.id.toString())"> hide </a>
+              <td *ngIf="user.username!=contribution.user_id"> | </td>
               <td>
                 <a [routerLink]="['/item']" [queryParams]="{id:contribution.id}">discuss
                 </a>

@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../services/user.service";
 import {ContributionService} from "../services/contribution.service";
 import {HttpParams} from "@angular/common/http";
+import {ApiKeyManagerService} from "../services/api-key-manager.service";
 
 @Component({
   selector: 'app-main-list',
@@ -14,13 +15,14 @@ import {HttpParams} from "@angular/common/http";
 export class MainListComponent implements OnInit {
   contributions: Contribution[];
   user: User;
-  username: string="sgmarcsg";
+  username: string;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private userService: UserService,
-    private contributionService: ContributionService
+    private contributionService: ContributionService,
+    private apiKeyManager: ApiKeyManagerService
   ) { }
 
   ngOnInit(): void {
@@ -29,6 +31,7 @@ export class MainListComponent implements OnInit {
   }
 
   getUser():void {
+    this.username=this.apiKeyManager.username;
     this.userService.getUserProfile(this.username)
       .subscribe(user => this.user = user);
   }

@@ -1,4 +1,4 @@
-<button *ngIf="notExistsKey(); else existsKey" (click)="signInWithGoogle()">Sign in with Google</button>
+<button *ngIf="notExistsKey(); else existsKey" (click)="signInWithGoogle()" routerLink="">Sign in with Google</button>
 
 <ng-template #existsKey>
   <app-top-bar></app-top-bar>
