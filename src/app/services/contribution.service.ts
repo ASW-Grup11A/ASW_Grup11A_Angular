@@ -9,7 +9,7 @@ import {ApiKeyManagerService} from './api-key-manager.service';
   providedIn: 'root'
 })
 export class ContributionService {
-  private url = 'http://empo-news.herokuapp.com/api/v1';
+  private url = 'https://empo-news.herokuapp.com/api/v1';
   private headers;
 
   constructor(
@@ -20,8 +20,8 @@ export class ContributionService {
     this.headers = new HttpHeaders().set('Api-Key', apiKey);
   }
 
-  createContribution(body: object): Observable<Contribution> {
-    return this.http.post(`${this.url}/contributions`, body,
+  createContribution(body: Contribution): Observable<Contribution> {
+    return this.http.post<any>(`${this.url}/contributions`, body,
       {
         headers: this.headers,
         observe: 'body',

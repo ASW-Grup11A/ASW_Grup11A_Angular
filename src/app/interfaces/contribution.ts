@@ -4,7 +4,7 @@ export interface Contribution {
   title: string;
   url?: string;
   text?: string;
-  publication_time: string;
+  publicationTime: string;
   comments: number;
   points: number;
   hidden: number;

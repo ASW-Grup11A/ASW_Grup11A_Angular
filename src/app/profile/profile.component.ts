@@ -1,10 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { User } from "../interfaces/user";
-import { ActivatedRoute, Router } from "@angular/router";
-import { UserService } from "../services/user.service";
-import {HttpParams} from "@angular/common/http";
-import {ApiKeyManagerService} from "../services/api-key-manager.service";
-import {UtilitiesService} from "../services/utilities.service";
+import {User} from '../interfaces/user';
+import {ActivatedRoute, Router} from '@angular/router';
+import {UserService} from '../services/user.service';
+import {HttpParams} from '@angular/common/http';
+import {ApiKeyManagerService} from '../services/api-key-manager.service';
 
 @Component({
   selector: 'app-profile',
@@ -28,12 +27,12 @@ export class ProfileComponent implements OnInit {
     this.getUser();
   }
 
-  getUser():void {
+  getUser(): void {
     const username = this.route.snapshot.paramMap.get('username');
     this.apikey = 'eGF2aWNhbXBvczk5eGF2aWNhbXBvczk5QGdtYWlsLmNvbTE=';
     this.userService.getUserProfile(username)
       .subscribe(user => this.user = user);
-    this.email = 'xavicampos99@gmail.com'
+    this.email = 'xavicampos99@gmail.com';
   }
 
   updateUserProfile() {
