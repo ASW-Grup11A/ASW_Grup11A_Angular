@@ -16,7 +16,8 @@ export class ContributionService {
     private http: HttpClient,
     private apiKeyManager: ApiKeyManagerService
   ){
-    const apiKey = this.apiKeyManager.apiKey;
+    //const apiKey = this.apiKeyManager.apiKey;
+    const apiKey = 'eGF2aWNhbXBvczk5eGF2aWNhbXBvczk5QGdtYWlsLmNvbTE=';
     this.headers = new HttpHeaders().set('Api-Key', apiKey);
   }
 
