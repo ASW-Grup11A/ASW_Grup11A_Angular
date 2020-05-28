@@ -9,15 +9,14 @@ import {ApiKeyManagerService} from './api-key-manager.service';
   providedIn: 'root'
 })
 export class CommentService {
-  private url = 'http://empo-news.herokuapp.com/api/v1';
+  private url = 'https://empo-news.herokuapp.com/api/v1';
   private headers;
 
   constructor(
     private http: HttpClient,
     private apiKeyManager: ApiKeyManagerService
   ){
-    //const apiKey = this.apiKeyManager.apiKey;
-    const apiKey = 'eGF2aWNhbXBvczk5eGF2aWNhbXBvczk5QGdtYWlsLmNvbTE=';
+    const apiKey = this.apiKeyManager.apiKey;
     this.headers = new HttpHeaders().set('Api-Key', apiKey);
   }
 

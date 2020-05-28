@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {AuthService, GoogleLoginProvider} from 'angularx-social-login';
 import {ApiKeyManagerService} from './services/api-key-manager.service';
 import {UtilitiesService} from './services/utilities.service';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-root',
@@ -29,7 +29,7 @@ export class AppComponent {
         });
     }
 
-    goToPage(pageName:string):void{
+    goToPage(pageName: string): void{
       this.router.navigate([`${pageName}`]);
     }
 }

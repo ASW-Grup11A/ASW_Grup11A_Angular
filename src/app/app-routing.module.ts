@@ -6,6 +6,8 @@ import { NotImplementedComponent} from "./not-implemented/not-implemented.compon
 import { ThreadsComponent } from "./threads/threads.component";
 import {CommentListComponent} from "./comment-list/comment-list.component";
 import {UserSubmissionsComponent} from "./user-submissions/user-submissions.component";
+import {SubmitComponent} from './submit/submit.component';
+
 
 const routes: Routes = [
   { path: '', component: MainPageComponent},
@@ -13,6 +15,7 @@ const routes: Routes = [
   { path: 'threads/:username', component: ThreadsComponent},
   { path: 'comments', component: CommentListComponent},
   { path: 'submitted', component: UserSubmissionsComponent},
+  { path: 'submit', component: SubmitComponent},
   { path: '**', component: NotImplementedComponent}
 ];
 

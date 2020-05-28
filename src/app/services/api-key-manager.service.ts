@@ -10,7 +10,8 @@ export class ApiKeyManagerService {
   }
 
   get apiKey(): string {
-    return this.key;
+    // return this.key;
+    return 'eGF2aWNhbXBvczk5eGF2aWNhbXBvczk5QGdtYWlsLmNvbTE=';
   }
 
   set apiKey(value: string) {
