@@ -44,7 +44,7 @@ export class ContributionsMainComponent implements OnInit {
   private getContributions() {
     let params: HttpParams = new HttpParams();
     this.contributionService.getAllContributions(params)
-      .subscribe(contributions => this.allContributions)
+      .subscribe(contributions => this.allContributions = contributions)
   }
 
   clickMore() {
