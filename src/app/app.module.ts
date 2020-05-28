@@ -15,6 +15,7 @@ import { ThreadsComponent } from './threads/threads.component';
 import { DateAgoPipe } from './pipes/date-ago.pipe';
 import { CommentListComponent } from './comment-list/comment-list.component';
 import { UserSubmissionsComponent } from './user-submissions/user-submissions.component';
+import { ShowEnPageComponent } from './show-en-page/show-en-page.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { UserSubmissionsComponent } from './user-submissions/user-submissions.co
     DateAgoPipe,
     CommentListComponent,
     UserSubmissionsComponent,
+    ShowEnPageComponent,
   ],
     imports: [
         SocialLoginModule,

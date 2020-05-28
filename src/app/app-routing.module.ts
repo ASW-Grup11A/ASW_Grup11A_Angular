@@ -7,6 +7,7 @@ import { ThreadsComponent } from "./threads/threads.component";
 import {CommentListComponent} from "./comment-list/comment-list.component";
 import {UserSubmissionsComponent} from "./user-submissions/user-submissions.component";
 import {SubmitComponent} from './submit/submit.component';
+import {ShowEnPageComponent} from "./show-en-page/show-en-page.component";
 
 
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'comments', component: CommentListComponent},
   { path: 'submitted', component: UserSubmissionsComponent},
   { path: 'submit', component: SubmitComponent},
+  { path: 'show_list', component: ShowEnPageComponent},
   { path: '**', component: NotImplementedComponent}
 ];
 
