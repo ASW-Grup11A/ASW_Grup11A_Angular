@@ -1,0 +1,39 @@
+<div align="center">
+    <table id="hnmain" border="0" cellpadding="0" cellspacing="0" width="85%">
+        <tr style="height:10px"></tr>
+        <tr *ngIf="error.length > 0">
+            <td class="error">{{error}}</td>
+        </tr>
+        <tr>
+            <td>
+                <form [formGroup]="form" (ngSubmit)="onClick(form.value)">
+                    <table>
+                        <tr>
+                            <th><label for="title">title </label></th>
+                            <td><input id="title" type="text" required formControlName="title"></td>
+                        </tr>
+                        <tr>
+                            <th><label for="url">url </label></th>
+                            <td><input id="url" type="text" formControlName="url"></td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td>or</td>
+                        </tr>
+                        <tr>
+                            <th><label for="text">text </label></th>
+                            <td><textarea id="text" type="text" formControlName="text" cols="56" rows="5"></textarea></td>
+                        </tr>
+                    </table>
+                    <button type="submit" style="margin-left: 43px; margin-top: 5px; margin-bottom: 10px">submit
+                    </button>
+                    <br>
+                    <p style="margin-left: 43px">Leave url blank to submit a question for discussion. If there is no
+                        url,
+                        the text (if any) will appear at the top of the thread.</p>
+                    <p style="margin-left: 43px">You can also submit via bookmarklet.</p>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>

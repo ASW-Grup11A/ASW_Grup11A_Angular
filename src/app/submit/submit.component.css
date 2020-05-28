@@ -1,0 +1,27 @@
+td {
+    font-family:Verdana, Geneva, sans-serif;
+    font-size:10pt;
+    color:#828282;
+}
+
+td.error {
+    color: red;
+    padding-left: 5px;
+    padding-bottom: 10px;
+}
+
+input {
+    font-family:monospace;
+    font-size:10pt;
+}
+input[type=\"submit\"] {
+    font-family:Verdana, Geneva, sans-serif;
+}
+textarea {
+    font-family:monospace;
+    font-size:10pt;
+}
+label {
+    font-family:Verdana, Geneva, sans-serif;
+    font-size:10pt;
+}
