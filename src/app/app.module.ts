@@ -17,6 +17,7 @@ import { CommentListComponent } from './comment-list/comment-list.component';
 import { UserSubmissionsComponent } from './user-submissions/user-submissions.component';
 import { ShowEnPageComponent } from './show-en-page/show-en-page.component';
 import { AskListComponent } from './ask-list/ask-list.component';
+import { VotedSubmissionsListComponent } from './voted-submissions-list/voted-submissions-list.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { AskListComponent } from './ask-list/ask-list.component';
     UserSubmissionsComponent,
     ShowEnPageComponent,
     AskListComponent,
+    VotedSubmissionsListComponent,
   ],
     imports: [
         SocialLoginModule,

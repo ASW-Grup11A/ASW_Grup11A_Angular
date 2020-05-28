@@ -6,9 +6,9 @@ export class ContributionImpl implements Contribution{
   id: number;
   liked: boolean;
   points: number;
-  publicationTime: string;
+  publication_time: string;
   show: boolean;
-  user: string;
+  user_id: string;
   text: string;
   title: string;
   url: string;
