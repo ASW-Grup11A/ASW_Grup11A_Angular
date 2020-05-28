@@ -10,8 +10,8 @@ const routes: Routes = [
   { path: '', component: MainPageComponent},
   { path: 'user_page/:username', component: ProfileComponent},
   { path: 'threads/:username', component: ThreadsComponent},
-  { path: '**', component: NotImplementedComponent},
-  {path: 'submit', component: SubmitComponent}
+  { path: 'submit', component: SubmitComponent},
+  { path: '**', component: NotImplementedComponent}
 ];
 
 @NgModule({
