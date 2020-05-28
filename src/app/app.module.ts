@@ -21,6 +21,9 @@ import { CommentListComponent } from './comment-list/comment-list.component';
 import { UserSubmissionsComponent } from './user-submissions/user-submissions.component';
 import { MainListComponent } from './main-list/main-list.component';
 import { NewListComponent } from './new-list/new-list.component';
+import { ShowEnPageComponent } from './show-en-page/show-en-page.component';
+import { AskListComponent } from './ask-list/ask-list.component';
+import { VotedSubmissionsListComponent } from './voted-submissions-list/voted-submissions-list.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +43,9 @@ import { NewListComponent } from './new-list/new-list.component';
     UserSubmissionsComponent,
     MainListComponent,
     NewListComponent,
+    ShowEnPageComponent,
+    AskListComponent,
+    VotedSubmissionsListComponent,
   ],
     imports: [
         SocialLoginModule,

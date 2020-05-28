@@ -8,6 +8,9 @@ import {CommentListComponent} from "./comment-list/comment-list.component";
 import {UserSubmissionsComponent} from "./user-submissions/user-submissions.component";
 import {SubmitComponent} from './submit/submit.component';
 import {MainListComponent} from "./main-list/main-list.component";
+import {ShowEnPageComponent} from "./show-en-page/show-en-page.component";
+import {AskListComponent} from "./ask-list/ask-list.component";
+import {VotedSubmissionsListComponent} from "./voted-submissions-list/voted-submissions-list.component";
 
 
 const routes: Routes = [
@@ -20,10 +23,11 @@ const routes: Routes = [
   {path: 'newest', component: ListContributionsComponent},
   {path: 'threads/:userSelected', component: ListContributionsComponent},
   {path: 'comments', component: ListContributionsComponent},
-  {path: 'ask_list', component: ListContributionsComponent},
-  {path: 'show_list', component: ListContributionsComponent},
   {path: 'user_page/:username', component: ProfileComponent},
-  { path: '**', component: NotImplementedComponent},
+  { path: 'show_list', component: ShowEnPageComponent},
+  { path: 'ask_list', component: AskListComponent},
+  { path: 'voted_submissions', component: VotedSubmissionsListComponent},
+  { path: '**', component: NotImplementedComponent}
 ];
 
 @NgModule({
