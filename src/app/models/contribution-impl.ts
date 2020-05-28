@@ -20,4 +20,5 @@ export class ContributionImpl implements Contribution{
     this.title = title;
     this.url = url;
   }
+
 }
