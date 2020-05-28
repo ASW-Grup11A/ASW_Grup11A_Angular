@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Contribution} from "../interfaces/contribution";
 import { Comment } from "../interfaces/comment";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Location } from "@angular/common";
 import { CommentService } from "../services/comment.service";
 import { HttpParams } from "@angular/common/http";
 import {UserService} from "../services/user.service";
 import {User} from "../interfaces/user";
+import {ContributionService} from "../services/contribution.service";
+import {Contribution} from "../interfaces/contribution";
 
 @Component({
   selector: 'app-threads',
@@ -23,6 +23,7 @@ export class ThreadsComponent implements OnInit {
     private router: Router,
     private userService: UserService,
     private commentService: CommentService,
+    private contributionService: ContributionService
   ) { }
 
   ngOnInit(): void {
@@ -41,4 +42,15 @@ export class ThreadsComponent implements OnInit {
     params = params.append('username', this.username);
     this.commentService.getAllComments(params).subscribe(comments => this.comments = comments);
   }
+
+  voteComment(id:string):void {
+    this.contributionService.voteContribution(id).subscribe();
+    window.location.reload();
+  }
+
+  unvoteComment(id:string):void {
+    this.contributionService.unvoteContribution(id).subscribe();
+    window.location.reload();
+  }
+
 }

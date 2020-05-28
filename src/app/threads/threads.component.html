@@ -23,20 +23,24 @@
                     </td>
                     <ng-template #notCurrent>
                       <td *ngIf="!comment.liked;">
-                        <a routerLink="/like_comment/{{comment.id}}/{{user.username}}">
+                        <a (click)="voteComment(comment.id.toString())">
                           <img src="assets/grayarrow.gif">
                         </a>
                       </td>
                     </ng-template>
                     <div *ngIf="comment.points < 2; else multiplePoints">
-                      <td>{{comment.points}} point by </td>
+                      <td>{{comment.points}} point by</td>
                     </div>
                     <ng-template #multiplePoints>
-                      <td>{{comment.points}} points by </td>
+                      <td>{{comment.points}} points by</td>
                     </ng-template>
-                    <td><a routerLink="/user_page/{{user.username}}">{{ user.username }}</a></td>
+                    <td>
+                      <a routerLink="/user_page/{{user.username}}">{{ user.username }}</a>
+                    </td>
                     <td>{{comment.publication_time | dateAgo}}</td>
-                    <td> | </td>
+                    <td *ngIf="comment.liked;"> | </td>
+                    <a *ngIf="comment.liked" (click)="unvoteComment(comment.id.toString())">unvote</a>
+                    <td>| </td>
                     <div *ngIf="comment.parent; else noParent">
                       <td>
                         <a [routerLink]="['/item']" [queryParams]="{id:comment.parent}">parent</a>
@@ -47,7 +51,7 @@
                     </ng-template>
                     <td> | on: </td>
                     <td>
-                      <a [routerLink]="['/item']" [queryParams]="{id:comment.contribution}">{{comment.contribution}}</a>
+                      <a [routerLink]="['/item']" [queryParams]="{id:comment.contribution}">{{comment.contribution_title}}</a>
                     </td>
                   </tr>
                 </div>

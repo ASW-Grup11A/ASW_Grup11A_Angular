@@ -10,4 +10,5 @@ export interface Contribution {
   hidden: number;
   liked: boolean;
   show: boolean;
+  contribution_title: string;
 }

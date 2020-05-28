@@ -49,4 +49,16 @@ export class UserSubmissionsComponent implements OnInit {
     let baseUrl = 'https://www.google.com/search?q=';
     window.location.href = baseUrl + stringToSearch;
   }
+
+  voteContribution(id:string):void {
+    console.log("vote contribution " + id.toString());
+    this.contributionService.voteContribution(id).subscribe();
+    window.location.reload();
+  }
+
+  unvoteContribution(id:string):void {
+    console.log("unvote contribution " + id.toString());
+    this.contributionService.unvoteContribution(id).subscribe();
+    window.location.reload();
+  }
 }

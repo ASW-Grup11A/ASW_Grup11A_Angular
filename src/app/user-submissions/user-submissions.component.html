@@ -23,8 +23,8 @@
                   <font color="#ff0080" size="3px">*</font>
                 </td>
                 <ng-template #notCurrent>
-                  <td *ngIf="contribution.liked; else liked">
-                    <img src="assets/grayarrow.gif" routerLink="/like_comment/{{contribution.id}}/{{contribution.user}}">
+                  <td *ngIf="!contribution.liked; else liked">
+                    <img (click)="voteContribution(contribution.id.toString())" src="assets/grayarrow.gif">
                   </td>
                   <ng-template #liked>
                     <td width="10px"></td>
@@ -53,7 +53,8 @@
                 </ng-template>
                 <td><a routerLink="/user_page/{{user.username}}">{{ user.username }}</a></td>
                 <td> {{contribution.publication_time | dateAgo}} | </td>
-                <td *ngIf="!contribution.liked && !user.minaway"> unvote | </td>
+                <td *ngIf="contribution.liked && !user.minaway"
+                    (click)="unvoteContribution(contribution.id.toString())"> unvote | </td>
                 <a (click)="googleSearch(contribution.title)"> web </a>
                 <td> | </td>
                 <td>
