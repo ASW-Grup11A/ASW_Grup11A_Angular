@@ -8,6 +8,7 @@ import {CommentListComponent} from "./comment-list/comment-list.component";
 import {UserSubmissionsComponent} from "./user-submissions/user-submissions.component";
 import {SubmitComponent} from './submit/submit.component';
 import {ShowEnPageComponent} from "./show-en-page/show-en-page.component";
+import {AskListComponent} from "./ask-list/ask-list.component";
 
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'submitted', component: UserSubmissionsComponent},
   { path: 'submit', component: SubmitComponent},
   { path: 'show_list', component: ShowEnPageComponent},
+  { path: 'ask_list', component: AskListComponent},
   { path: '**', component: NotImplementedComponent}
 ];
 

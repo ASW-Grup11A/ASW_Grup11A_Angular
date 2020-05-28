@@ -16,6 +16,7 @@ import { DateAgoPipe } from './pipes/date-ago.pipe';
 import { CommentListComponent } from './comment-list/comment-list.component';
 import { UserSubmissionsComponent } from './user-submissions/user-submissions.component';
 import { ShowEnPageComponent } from './show-en-page/show-en-page.component';
+import { AskListComponent } from './ask-list/ask-list.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { ShowEnPageComponent } from './show-en-page/show-en-page.component';
     CommentListComponent,
     UserSubmissionsComponent,
     ShowEnPageComponent,
+    AskListComponent,
   ],
     imports: [
         SocialLoginModule,
