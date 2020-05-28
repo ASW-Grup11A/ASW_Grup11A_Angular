@@ -9,7 +9,7 @@ import {ApiKeyManagerService} from './api-key-manager.service';
   providedIn: 'root'
 })
 export class ContributionService {
-  private url = 'http://empo-news.herokuapp.com/api/v1';
+  private url = 'https://empo-news.herokuapp.com/api/v1';
   private headers;
 
   constructor(
