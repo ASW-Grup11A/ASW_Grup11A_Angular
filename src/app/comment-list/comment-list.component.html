@@ -23,7 +23,7 @@
                 </td>
                 <ng-template #notCurrent>
                   <td *ngIf="!comment.liked;">
-                    <img src="assets/grayarrow.gif" routerLink="/like_comment/{{comment.id}}/{{comment.user}}">
+                    <img src="assets/grayarrow.gif" routerLink="/like_comment/{{comment.id}}/{{comment.user_id}}">
                   </td>
                 </ng-template>
                 <div *ngIf="comment.points < 2; else multiplePoints">

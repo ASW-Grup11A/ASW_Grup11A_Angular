@@ -6,12 +6,13 @@ export class ContributionImpl implements Contribution{
   id: number;
   liked: boolean;
   points: number;
-  publicationTime: string;
+  publication_time: string;
   show: boolean;
-  user: string;
+  user_id: string;
   text: string;
   title: string;
   url: string;
+  contribution_title: string;
 
 
   constructor(title: string, url: string, text: string) {
@@ -19,4 +20,5 @@ export class ContributionImpl implements Contribution{
     this.title = title;
     this.url = url;
   }
+
 }

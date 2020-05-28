@@ -27,7 +27,7 @@
               <td align="right" valign="top" class="title"><span class="rank">{{ incrementDisplayIndex() }}.</span></td>
               <td valign="top" class="votelinks">
                 <div align="center">
-                  <ng-container *ngIf='contribution.user != user.username; else myContribution'>
+                  <ng-container *ngIf='contribution.user_id != user.username; else myContribution'>
                     <ng-container *ngIf='contribution.liked; else notLiked'>
                       <a id='up_{{ contribution.id }}' (click)="voteContribution(contribution.id)">
                         <div class='votearrow' title='upvote'></div>
@@ -68,12 +68,12 @@
                                </ng-container>
                                by
                              </span>
-                <a routerLink="/profile/{{user.username}}" class="hnuser" > {{ contribution.user }} </a>
+                <a routerLink="/profile/{{user.username}}" class="hnuser" > {{ contribution.user_id }} </a>
                 <span class="age">
                   <a href="{% url 'empo_news:item'%}?id={{ contribution.id }}" >{{ naturaltime(contribution.publication_time) }}</a>
                 </span>
                 <span id="unv_{{ contribution.id }}"></span> |
-                <ng-container *ngIf='!contribution.liked && contribution.user!=user.username'>
+                <ng-container *ngIf='!contribution.liked && contribution.user_id!=user.username'>
                   <a (click)="unvoteContribution(contribution.id)">unvote</a> |
                 </ng-container>
 
