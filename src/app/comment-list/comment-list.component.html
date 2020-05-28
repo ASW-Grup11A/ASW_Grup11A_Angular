@@ -1,0 +1,70 @@
+<html op="news">
+<head>
+  <title>Empo News</title>
+</head>
+<body>
+<div align="center">
+  <table id="hnmain" border="0" cellpadding="0" cellspacing="0" width="85%" bgcolor="#f6f6ef">
+    <tr>
+      <td>
+        <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td bgcolor="#ffffaa">
+              <table cellpadding="5" width="100%"></table>
+            </td>
+          </tr>
+        </table>
+        <table border="0">
+          <div *ngFor="let comment of comments">
+            <div style="margin-top: 15px; margin-bottom: 2px">
+              <tr class="subtext">
+                <td *ngIf="user.minaway; else notCurrent">
+                  <font color="#ff0080" size="3px">*</font>
+                </td>
+                <ng-template #notCurrent>
+                  <td *ngIf="!comment.liked;">
+                    <img src="assets/grayarrow.gif" routerLink="/like_comment/{{comment.id}}/{{comment.user}}">
+                  </td>
+                </ng-template>
+                <div *ngIf="comment.points < 2; else multiplePoints">
+                  <td>{{comment.points}} point by </td>
+                </div>
+                <ng-template #multiplePoints>
+                  <td>{{comment.points}} points by </td>
+                </ng-template>
+                <td><a routerLink="/user_page/{{user.username}}">{{ user.username }}</a></td>
+                <td>{{comment.publication_time | dateAgo}}</td>
+                <td> | </td>
+                <div *ngIf="comment.parent; else noParent">
+                  <td>
+                    <a [routerLink]="['/item']" [queryParams]="{id:comment.parent}">parent</a>
+                  </td>
+                </div>
+                <ng-template #noParent>
+                  <a [routerLink]="['/item']" [queryParams]="{id:comment.contribution}">parent</a>
+                </ng-template>
+                <td> | on: </td>
+                <td>
+                  <a [routerLink]="['/item']" [queryParams]="{id:comment.contribution}">{{comment.contribution}}</a>
+                </td>
+              </tr>
+            </div>
+            <tr class="admin">
+              <td style="width: 12px;" ></td>
+              <td>{{comment.text}}</td>
+            </tr>
+            <tr *ngIf="!user.minaway" style="height: 5px"></tr>
+            <tr *ngIf="!user.minaway" class="admin">
+              <td style="width: 12px;" ></td>
+              <a style="text-decoration: underline" [routerLink]="['/reply']" [queryParams]="{id:comment.id}">reply</a>
+            </tr>
+          </div>
+        </table>
+      </td>
+    </tr>
+  </table>
+</div>
+</body>
+</html>
+
+
