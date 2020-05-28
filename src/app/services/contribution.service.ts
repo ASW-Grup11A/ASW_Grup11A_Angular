@@ -20,8 +20,8 @@ export class ContributionService {
     this.headers = new HttpHeaders().set('Api-Key', apiKey);
   }
 
-  createContribution(body: object): Observable<Contribution> {
-    return this.http.post(`${this.url}/contributions`, body,
+  createContribution(body: Contribution): Observable<Contribution> {
+    return this.http.post<any>(`${this.url}/contributions`, body,
       {
         headers: this.headers,
         observe: 'body',

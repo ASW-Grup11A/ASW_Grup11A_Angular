@@ -46,7 +46,7 @@ export class ProfileComponent implements OnInit {
     this.userService.updateUserProfile(params).subscribe(user => this.user = user);
   }
 
-  private createContribution() {
+  /*private createContribution() {
     const params: HttpParams = new HttpParams();
     const body: object = {
       title: 'I love Minekraft',
@@ -54,7 +54,7 @@ export class ProfileComponent implements OnInit {
     };
     this.contributionService.createContribution(body).subscribe(
       contribution => this.contribution = contribution);
-  }
+  }*/
 
   private deleteContribution() {
     this.contributionService.deleteContribution('1').subscribe();
