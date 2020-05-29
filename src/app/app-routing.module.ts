@@ -18,7 +18,7 @@ import {VotedCommentsListComponent} from "./voted-comments-list/voted-comments-l
 const routes: Routes = [
   { path: '', component: MainListComponent},
   { path: 'user_page/:username', component: ProfileComponent},
-  { path: 'threads/:username', component: ThreadsComponent},
+  { path: 'threads', component: ThreadsComponent},
   { path: 'comments', component: CommentListComponent},
   { path: 'submitted', component: UserSubmissionsComponent},
   { path: 'submit', component: SubmitComponent},

@@ -20,10 +20,10 @@
                       <a routerLink = "/newest" *ngIf="highlight != 'newest'" >new</a>
                    |
                         <span class="topsel" *ngIf="highlight == 'threads' && user.username == userSelected; else onlyLink">
-                            <a [routerLink]="['/threads', user.username]" >threads</a>
+                          <a [routerLink]="['/threads']" [queryParams]="{username: user.username}" >threads</a>
                         </span>
                         <ng-template #onlyLink>
-                          <a [routerLink]="['/threads', user.username]" >threads</a>
+                          <a [routerLink]="['/threads']" [queryParams]="{username: user.username}" >threads</a>
                         </ng-template>
                     |
 

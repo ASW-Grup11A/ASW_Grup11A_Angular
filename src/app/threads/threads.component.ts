@@ -36,7 +36,7 @@ export class ThreadsComponent implements OnInit {
 
   getUser():void {
     this.currentUser=this.apiKeyManager.username;
-    this.username = this.route.snapshot.paramMap.get('username');
+    this.username = this.route.snapshot.queryParamMap.get('username');
     this.userService.getUserProfile(this.username)
       .subscribe(user => this.user = user);
   }

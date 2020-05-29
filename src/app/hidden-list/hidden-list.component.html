@@ -58,7 +58,12 @@
               <a (click)="unhideContribution(contribution.id.toString())"> un-hide </a>
               <td> | </td>
               <td>
-                <a [routerLink]="['/item']" [queryParams]="{id:contribution.id}">discuss
+                <a *ngIf="contribution.comments==0" [routerLink]="['/item']" [queryParams]="{id:contribution.id}">discuss
+                </a>
+                <a *ngIf="contribution.comments==1" [routerLink]="['/item']" [queryParams]="{id:contribution.id}">1 comment
+                </a>
+                <a *ngIf="contribution.comments>1" [routerLink]="['/item']" [queryParams]="{id:contribution.id}">
+                  {{contribution.comments}} comments
                 </a>
               </td>
             </tr>

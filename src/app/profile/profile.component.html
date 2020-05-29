@@ -94,7 +94,7 @@
               <tr>
                 <td></td>
                 <td>
-                  <a routerLink="/threads/{{user.username}}">
+                  <a [routerLink]="['/threads']" [queryParams]="{username: user.username}" >
                     <u>comments</u>
                   </a>
                 </td>
