@@ -21,16 +21,6 @@ export class UserService {
     this.headers = new HttpHeaders().set('Api-Key', apiKey);
   }
 
-
-  get CurrentUser() {
-    // return this.currentUser;
-    return 'santi.mypetcare';
-  }
-
-  set CurrentUser(value) {
-    this.currentUser = value;
-  }
-
   getUserProfile(username: string): Observable<User> {
     return this.http.get<User>(`${this.url}/${username}`,
       {

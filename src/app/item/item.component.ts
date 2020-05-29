@@ -11,6 +11,7 @@ import {UserService} from '../services/user.service';
 import {FormBuilder} from '@angular/forms';
 import {UtilitiesService} from '../services/utilities.service';
 import {filter} from 'rxjs/operators';
+import {ApiKeyManagerService} from '../services/api-key-manager.service';
 
 @Component({
   selector: 'app-item',
@@ -32,7 +33,7 @@ export class ItemComponent implements OnInit {
     private route: ActivatedRoute,
     private contributionService: ContributionService,
     private commentService: CommentService,
-    private userService: UserService,
+    private apiKeyManagerService: ApiKeyManagerService,
     private formBuilder: FormBuilder,
     private router: Router,
   ) {
@@ -48,11 +49,7 @@ export class ItemComponent implements OnInit {
     ).subscribe(() => {
       this.fetchData();
     });
-    this.user = this.userService.CurrentUser;
-    this.contribution = new ContributionImpl(null, null, null);
-    this.comment = new CommentImpl(null);
-    this.getContribution();
-    this.getComments();
+    this.fetchData();
   }
 
   private getContribution(): void {
@@ -103,7 +100,6 @@ export class ItemComponent implements OnInit {
       this.error = true;
       this.ngOnInit();
     } else {
-      // this.router.navigate(['addcomment'], {queryParams: {id: this.id}});
       this.form.reset();
       this.error = false;
       this.commentService.createComment(this.id, {text: params.text}).subscribe(() => {
@@ -112,7 +108,6 @@ export class ItemComponent implements OnInit {
         }
         this.ngOnInit();
       });
-      // this.router.navigate(['item'], {queryParams: {id: this.id}});
     }
   }
 
@@ -130,19 +125,11 @@ export class ItemComponent implements OnInit {
   }
 
   private fetchData() {
-    this.user = this.userService.CurrentUser;
+    this.user = this.apiKeyManagerService.username;
     this.contribution = new ContributionImpl(null, null, null);
     this.comment = new CommentImpl(null);
     this.getContribution();
     this.getComments();
-  }
-
-  incrementIndent() {
-    this.indent += 40;
-  }
-
-  decrementIndent() {
-    this.indent -= 40;
   }
 
   onDecollapse(id: number) {
