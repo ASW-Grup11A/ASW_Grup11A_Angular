@@ -243,7 +243,7 @@
                                             <span class='storyon'></span>
                                         </span>
                                         </div>
-                                        <ng-template [ngIf]="actualComment.show">
+                                        <ng-template [ngIf]="actualComment.show && user != actualComment.user_id">
                                             <div class="comment">
                                             <span class="commtext c00">
                                                 {{ actualComment.text }}
