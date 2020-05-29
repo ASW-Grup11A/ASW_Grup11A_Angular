@@ -24,6 +24,7 @@ export class ItemComponent implements OnInit {
   comments: Comment[];
   @Input() newComment: Comment;
   form;
+  indent: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -62,6 +63,7 @@ export class ItemComponent implements OnInit {
   }
 
   private getComments(): void {
+    this.indent = 0;
     this.commentService.getAllCommentsFromContribution(this.id, new HttpParams())
       .subscribe(comments => {
         this.comments = comments;
@@ -87,10 +89,15 @@ export class ItemComponent implements OnInit {
   onClick(params: { text: string }) {
     this.form.reset();
     this.commentService.createComment(this.id, {text: params.text}).subscribe();
-    this.router.navigate(['item'], {queryParams: {id: this.id}});
+    this.getComments();
+    //this.router.navigate(['item'], {queryParams: {id: this.id}});
   }
 
   searchInGoogle(title: string) {
     UtilitiesService.googleSearch(title);
+  }
+
+  onCollapse(id: number) {
+
   }
 }
