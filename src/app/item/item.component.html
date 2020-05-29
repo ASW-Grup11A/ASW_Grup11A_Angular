@@ -50,7 +50,7 @@
                     </ng-template>
                          by
                 </span>
-                                <a routerLink="/profile/{{contribution.user_id}}"
+                                <a routerLink="/user_page/{{contribution.user_id}}"
                                    class="hnuser">{{contribution.user_id}}</a>
                                 <span class="age"> {{ contribution.publication_time|dateAgo }}</span>
                                 <span id="unv_{{ contribution.id }}">
@@ -107,7 +107,7 @@
                             <td class="default">
                                 <div>
                     <span class="comhead">
-                        <a routerLink="/profile/{{contribution.user_id}}">
+                        <a routerLink="/user_page/{{contribution.user_id}}">
                             {{ comment.user_id }}
                         </a>
                         <span class="age">
@@ -212,7 +212,7 @@
                                                 </ng-template>
                                                 by
                                             </ng-template>
-                                            <a routerLink="/profile/{{actualComment.user_id}}"
+                                            <a routerLink="/user_page/{{actualComment.user_id}}"
                                                class="hnuser">{{actualComment.user_id}}</a>
                                             <span class="age">
                                                 <a (click)="goToItem(actualComment.id)">
@@ -243,11 +243,11 @@
                                             <span class='storyon'></span>
                                         </span>
                                         </div>
-                                        <ng-template [ngIf]="actualComment.show && user != actualComment.user_id">
+                                        <ng-template [ngIf]="actualComment.show">
                                             <div class="comment">
                                             <span class="commtext c00">
                                                 {{ actualComment.text }}
-                                                <div *ngIf="user != actualComment.user_id" class='reply'>
+                                                <div *ngIf="user !== actualComment.user_id" class='reply'>
                                                     <p>
                                                         <span style="font-size: 7pt; ">
                                                             <u><a (click)="goToItem(actualComment.id)">
