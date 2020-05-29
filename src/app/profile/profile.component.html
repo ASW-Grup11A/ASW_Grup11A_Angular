@@ -33,7 +33,7 @@
             <div *ngIf="user.minaway">
               <tr>
                 <td valign="top" style="width: 80px">api key:</td>
-                <td>{{ apikey }}</td>
+                <td>{{ getApiKey() }}</td>
               </tr>
               <tr>
                 <td valign="top">about:</td>
@@ -45,7 +45,7 @@
               </tr>
               <tr>
                 <td valign="top">email:</td>
-                <td>{{ email }}</td>
+                <td>{{ user.email }}</td>
               </tr>
               <div class="form-group">
                 <td style="width: 80px"><label for="showdead">showdead:</label>
@@ -94,7 +94,7 @@
               <tr>
                 <td></td>
                 <td>
-                  <a routerLink="/threads/{{user.username}}">
+                  <a [routerLink]="['/threads']" [queryParams]="{username: user.username}" >
                     <u>comments</u>
                   </a>
                 </td>

@@ -4,18 +4,17 @@ import {User} from "../interfaces/user";
 import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../services/user.service";
 import {ContributionService} from "../services/contribution.service";
-import {HttpParams} from "@angular/common/http";
 import {ApiKeyManagerService} from "../services/api-key-manager.service";
+import {HttpParams} from "@angular/common/http";
 
 @Component({
-  selector: 'app-main-list',
-  templateUrl: './main-list.component.html',
-  styleUrls: ['./main-list.component.css']
+  selector: 'app-hidden-list',
+  templateUrl: './hidden-list.component.html',
+  styleUrls: ['./hidden-list.component.css']
 })
-export class MainListComponent implements OnInit {
+export class HiddenListComponent implements OnInit {
   contributions: Contribution[];
   user: User;
-  username: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -31,16 +30,14 @@ export class MainListComponent implements OnInit {
   }
 
   getUser():void {
-    this.username=this.apiKeyManager.username;
-    this.userService.getUserProfile(this.username)
+    this.userService.getUserProfile(this.apiKeyManager.username)
       .subscribe(user => this.user = user);
   }
 
   getContributions():void {
     let params = new HttpParams();
-    params = params.append('hidden', 'false');
+    params = params.append('hidden', 'true');
     params = params.append("orderBy", "votes_desc");
-    // Hem d'obtenir soles les que no estan amagades
     this.contributionService.getAllContributions(params).subscribe(contributions =>
       this.contributions = contributions);
   }
@@ -76,8 +73,8 @@ export class MainListComponent implements OnInit {
     this.sortContributionsByPoints();
   }
 
-  hideContribution(id:string):void {
-    this.contributionService.hideContribution(id).subscribe();
+  unhideContribution(id:string):void {
+    this.contributionService.unhideContribution(id).subscribe();
     this.contributions = this.contributions.filter( contribution => contribution.id.toString() !== id);
     this.sortContributionsByPoints();
   }
@@ -100,4 +97,5 @@ export class MainListComponent implements OnInit {
       return 0;
     });
   }
+
 }

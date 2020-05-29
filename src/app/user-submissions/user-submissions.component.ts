@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../services/user.service";
 import {ContributionService} from "../services/contribution.service";
 import {HttpParams} from "@angular/common/http";
+import {ApiKeyManagerService} from "../services/api-key-manager.service";
 
 @Component({
   selector: 'app-user-submissions',
@@ -15,12 +16,14 @@ export class UserSubmissionsComponent implements OnInit {
   contributions: Contribution[];
   user: User;
   username: string;
+  currentUser: string;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private userService: UserService,
-    private contributionService: ContributionService
+    private contributionService: ContributionService,
+    private apiKeyManager: ApiKeyManagerService
   ) { }
 
   ngOnInit(): void {
@@ -29,6 +32,7 @@ export class UserSubmissionsComponent implements OnInit {
   }
 
   getUser():void {
+    this.currentUser=this.apiKeyManager.username;
     this.username = this.route.snapshot.queryParamMap.get('username');
     this.userService.getUserProfile(this.username)
       .subscribe(user => this.user = user);
@@ -36,7 +40,9 @@ export class UserSubmissionsComponent implements OnInit {
 
   getContributions():void {
     let params = new HttpParams();
+    params = params.append('hidden', 'false');
     params = params.append('username', this.username);
+    params = params.append("orderBy", "publication_time_desc");
     this.contributionService.getAllContributions(params).subscribe(contributions =>
       this.contributions = contributions);
   }
@@ -51,14 +57,37 @@ export class UserSubmissionsComponent implements OnInit {
   }
 
   voteContribution(id:string):void {
-    console.log("vote contribution " + id.toString());
     this.contributionService.voteContribution(id).subscribe();
-    window.location.reload();
+    for (const i in this.contributions){
+      if (this.contributions[i].id.toString()==id) {
+        this.contributions[i].liked=true;
+        this.contributions[i].points++;
+      }
+    }
+    this.sortContributionsByDate();
   }
 
   unvoteContribution(id:string):void {
-    console.log("unvote contribution " + id.toString());
     this.contributionService.unvoteContribution(id).subscribe();
-    window.location.reload();
+    for (const i in this.contributions){
+      if (this.contributions[i].id.toString()==id) {
+        this.contributions[i].liked=false;
+        this.contributions[i].points--;
+      }
+    }
+    this.sortContributionsByDate();
+  }
+
+  sortContributionsByDate () {
+    this.contributions.sort(function (a: Contribution, b: Contribution) {
+      if (a.publication_time>b.publication_time) {
+        return -1;
+      }
+      if (a.publication_time<b.publication_time) {
+        return 1;
+      }
+
+      return 0;
+    });
   }
 }

@@ -1,12 +1,11 @@
-<h1>Empo news</h1>
+<button *ngIf="notExistsKey(); else existsKey" (click)="signInWithGoogle()" routerLink="">Sign in with Google</button>
 
-<button type="submit" (click)="goToPage('user_page/xavicampos99')">Go to my profile</button>
-<button type="submit" (click)="goToPage('user_page/notquimmotgi')">Go to other profile</button>
-<button type="submit" (click)="goToPage('threads/xavicampos99')">Go to threads</button>
-<button type="submit" (click)="goToPage('submit')">Go to submit</button>
+<ng-template #existsKey>
+  <app-top-bar></app-top-bar>
 
-<button (click)="signInWithGoogle()">Sign in with Google</button>
+  <router-outlet></router-outlet>
 
-<router-outlet></router-outlet>
+  <app-bottom-bar></app-bottom-bar>
+</ng-template>
 
 

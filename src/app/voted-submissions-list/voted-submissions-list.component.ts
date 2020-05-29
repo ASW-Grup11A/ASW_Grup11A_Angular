@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../services/user.service";
 import {ContributionService} from "../services/contribution.service";
 import {HttpParams} from "@angular/common/http";
+import {ApiKeyManagerService} from "../services/api-key-manager.service";
 
 @Component({
   selector: 'app-voted-submissions-list',
@@ -19,7 +20,8 @@ export class VotedSubmissionsListComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private userService: UserService,
-    private contributionService: ContributionService
+    private contributionService: ContributionService,
+    private apiKeyManager: ApiKeyManagerService
   ) { }
 
   ngOnInit(): void {
@@ -28,13 +30,16 @@ export class VotedSubmissionsListComponent implements OnInit {
   }
 
   getUser():void {
-    let username = 'xavicampos99';
-    this.userService.getUserProfile(username)
+    this.userService.getUserProfile(this.apiKeyManager.username)
       .subscribe(user => this.user = user);
   }
 
   getContributions():void {
     let params = new HttpParams();
+    params = params.append('hidden', 'false');
+    params = params.append('liked', 'true');
+    params = params.append("orderBy", "votes_desc");
+    params = params.append("exclude_user", this.apiKeyManager.username);
     this.contributionService.getAllContributions(params).subscribe(contributions =>
       this.contributions = contributions);
   }
@@ -49,19 +54,44 @@ export class VotedSubmissionsListComponent implements OnInit {
   }
 
   voteContribution(id:string):void {
-    console.log("vote contribution " + id.toString());
     this.contributionService.voteContribution(id).subscribe();
-    window.location.reload();
+    for (const i in this.contributions){
+      if (this.contributions[i].id.toString()==id) {
+        this.contributions[i].liked=true;
+        this.contributions[i].points++;
+      }
+    }
+    this.sortContributionsByPoints();
   }
 
   unvoteContribution(id:string):void {
-    console.log("unvote contribution " + id.toString());
     this.contributionService.unvoteContribution(id).subscribe();
-    window.location.reload();
+    this.contributions = this.contributions.filter( contribution => contribution.id.toString() !== id);
+    this.sortContributionsByPoints();
   }
 
-  myVotedContributions():Contribution[] {
-    return this.contributions.filter(x => x.liked && x.user_id != this.user.username);
+  hideContribution(id:string):void {
+    this.contributionService.hideContribution(id).subscribe();
+    this.contributions = this.contributions.filter( contribution => contribution.id.toString() !== id);
+    this.sortContributionsByPoints();
   }
 
+  sortContributionsByPoints () {
+    this.contributions.sort(function (a: Contribution, b: Contribution) {
+      if (a.points>b.points) {
+        return -1;
+      }
+      if (a.points<b.points) {
+        return 1;
+      }
+      if (a.publication_time>b.publication_time) {
+        return -1;
+      }
+      if (a.publication_time<b.publication_time) {
+        return 1;
+      }
+
+      return 0;
+    });
+  }
 }
