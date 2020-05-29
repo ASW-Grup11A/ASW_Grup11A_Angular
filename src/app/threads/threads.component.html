@@ -62,7 +62,7 @@
                 <tr *ngIf="currentUser!=comment.user_id" style="height: 5px"></tr>
                 <tr *ngIf="currentUser!=comment.user_id" class="admin">
                   <td style="width: 12px;" ></td>
-                  <a style="text-decoration: underline" [routerLink]="['/items']" [queryParams]="{id:comment.id}">reply
+                  <a style="text-decoration: underline" [routerLink]="['/item']" [queryParams]="{id:comment.id}">reply
                   </a>
                 </tr>
               </div>
