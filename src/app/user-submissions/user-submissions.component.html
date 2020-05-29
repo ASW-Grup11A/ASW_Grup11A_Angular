@@ -56,9 +56,9 @@
                 <td *ngIf="contribution.liked && !user.minaway"
                     (click)="unvoteContribution(contribution.id.toString())"> unvote | </td>
                 <a (click)="googleSearch(contribution.title)"> web </a>
-                <td> | </td>
+                <td *ngIf="currentUser!=username"> | </td>
                 <td>
-                  <a [routerLink]="['/item']" [queryParams]="{id:contribution.id}">discuss
+                  <a *ngIf="currentUser!=username" [routerLink]="['/item']" [queryParams]="{id:contribution.id}">discuss
                   </a>
                 </td>
               </tr>

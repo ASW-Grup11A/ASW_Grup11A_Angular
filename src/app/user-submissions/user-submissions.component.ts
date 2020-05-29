@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../services/user.service";
 import {ContributionService} from "../services/contribution.service";
 import {HttpParams} from "@angular/common/http";
+import {ApiKeyManagerService} from "../services/api-key-manager.service";
 
 @Component({
   selector: 'app-user-submissions',
@@ -15,12 +16,14 @@ export class UserSubmissionsComponent implements OnInit {
   contributions: Contribution[];
   user: User;
   username: string;
+  currentUser: string;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private userService: UserService,
-    private contributionService: ContributionService
+    private contributionService: ContributionService,
+    private apiKeyManager: ApiKeyManagerService
   ) { }
 
   ngOnInit(): void {
@@ -29,6 +32,7 @@ export class UserSubmissionsComponent implements OnInit {
   }
 
   getUser():void {
+    this.currentUser=this.apiKeyManager.username;
     this.username = this.route.snapshot.queryParamMap.get('username');
     this.userService.getUserProfile(this.username)
       .subscribe(user => this.user = user);

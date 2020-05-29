@@ -38,6 +38,7 @@ export class VotedSubmissionsListComponent implements OnInit {
     let params = new HttpParams();
     params = params.append('hidden', 'false');
     params = params.append('liked', 'true');
+    params = params.append("orderBy", "votes_desc");
     this.contributionService.getAllContributions(params).subscribe(contributions =>
       this.contributions = contributions);
   }
@@ -66,8 +67,7 @@ export class VotedSubmissionsListComponent implements OnInit {
     this.contributionService.unvoteContribution(id).subscribe();
     for (const i in this.contributions){
       if (this.contributions[i].id.toString()==id) {
-        this.contributions[i].liked=false;
-        this.contributions[i].points--;
+        delete this.contributions[i];
       }
     }
     this.sortContributionsByPoints();
@@ -101,5 +101,4 @@ export class VotedSubmissionsListComponent implements OnInit {
       return 0;
     });
   }
-
 }

@@ -12,6 +12,7 @@ import {AskListComponent} from "./ask-list/ask-list.component";
 import {VotedSubmissionsListComponent} from "./voted-submissions-list/voted-submissions-list.component";
 import {NewListComponent} from "./new-list/new-list.component";
 import {HiddenListComponent} from "./hidden-list/hidden-list.component";
+import {VotedCommentsListComponent} from "./voted-comments-list/voted-comments-list.component";
 
 
 const routes: Routes = [
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'show_list', component: ShowEnPageComponent},
   { path: 'ask_list', component: AskListComponent},
   { path: 'voted_submissions', component: VotedSubmissionsListComponent},
+  { path: 'voted_comments', component: VotedCommentsListComponent},
   { path: 'hidden/:username', component: HiddenListComponent},
   { path: '**', component: NotImplementedComponent}
 ];
