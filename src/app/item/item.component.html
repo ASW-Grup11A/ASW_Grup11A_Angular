@@ -236,7 +236,7 @@
                                                 </ng-template>
                                                 <ng-template #collapseElse>
                                                     <a class="togg" (click)="onDecollapse(actualComment.id)">
-                                                    [+{{ actualComment.comments }}]
+                                                    [+{{ actualComment.comments + 1 }}]
                                                     </a>
                                                 </ng-template>
 
@@ -263,7 +263,7 @@
                             </table>
                         </td>
                     </tr>
-                    <ng-template [ngIf]="actualComment.comments_list.length > 0">
+                    <ng-template [ngIf]="actualComment.show && actualComment.comments_list.length > 0">
                         <ng-container
                                 *ngTemplateOutlet="displayReplies; context:{ list: actualComment.comments_list,
                                 space: space + 40}"></ng-container>
