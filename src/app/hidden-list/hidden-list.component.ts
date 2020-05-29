@@ -4,15 +4,15 @@ import {User} from "../interfaces/user";
 import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../services/user.service";
 import {ContributionService} from "../services/contribution.service";
-import {HttpParams} from "@angular/common/http";
 import {ApiKeyManagerService} from "../services/api-key-manager.service";
+import {HttpParams} from "@angular/common/http";
 
 @Component({
-  selector: 'app-voted-submissions-list',
-  templateUrl: './voted-submissions-list.component.html',
-  styleUrls: ['./voted-submissions-list.component.css']
+  selector: 'app-hidden-list',
+  templateUrl: './hidden-list.component.html',
+  styleUrls: ['./hidden-list.component.css']
 })
-export class VotedSubmissionsListComponent implements OnInit {
+export class HiddenListComponent implements OnInit {
   contributions: Contribution[];
   user: User;
 
@@ -36,8 +36,8 @@ export class VotedSubmissionsListComponent implements OnInit {
 
   getContributions():void {
     let params = new HttpParams();
-    params = params.append('hidden', 'false');
-    params = params.append('liked', 'true');
+    params = params.append('hidden', 'true');
+    params = params.append("orderBy", "votes_desc");
     this.contributionService.getAllContributions(params).subscribe(contributions =>
       this.contributions = contributions);
   }
@@ -73,8 +73,8 @@ export class VotedSubmissionsListComponent implements OnInit {
     this.sortContributionsByPoints();
   }
 
-  hideContribution(id:string):void {
-    this.contributionService.hideContribution(id).subscribe();
+  unhideContribution(id:string):void {
+    this.contributionService.unhideContribution(id).subscribe();
     for (const i in this.contributions){
       if (this.contributions[i].id.toString()==id) {
         delete this.contributions[i];

@@ -38,6 +38,7 @@ export class NewListComponent implements OnInit {
 
   getContributions():void {
     let params = new HttpParams();
+    params = params.append('hidden', 'false');
     params = params.append("orderBy", "publication_time_desc");
     // Hem d'obtenir soles les que no estan amagades
     this.contributionService.getAllContributions(params).subscribe(contributions =>

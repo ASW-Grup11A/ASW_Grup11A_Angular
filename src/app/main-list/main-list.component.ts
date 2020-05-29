@@ -38,6 +38,7 @@ export class MainListComponent implements OnInit {
 
   getContributions():void {
     let params = new HttpParams();
+    params = params.append('hidden', 'false');
     params = params.append("orderBy", "votes_desc");
     // Hem d'obtenir soles les que no estan amagades
     this.contributionService.getAllContributions(params).subscribe(contributions =>
@@ -77,16 +78,6 @@ export class MainListComponent implements OnInit {
 
   hideContribution(id:string):void {
     this.contributionService.hideContribution(id).subscribe();
-    for (const i in this.contributions){
-      if (this.contributions[i].id.toString()==id) {
-        delete this.contributions[i];
-      }
-    }
-    this.sortContributionsByPoints();
-  }
-
-  unhideContribution(id:string):void {
-    this.contributionService.unhideContribution(id).subscribe();
     for (const i in this.contributions){
       if (this.contributions[i].id.toString()==id) {
         delete this.contributions[i];

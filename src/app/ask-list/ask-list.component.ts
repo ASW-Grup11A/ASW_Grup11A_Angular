@@ -36,8 +36,9 @@ export class AskListComponent implements OnInit {
 
   getContributions():void {
     let params = new HttpParams();
+    params = params.append('hidden', 'false');
     params = params.append('ask', 'true');
-    params = params.append("orderBy", "votes_desc");
+    params = params.append('orderBy', 'votes_desc');
     this.contributionService.getAllContributions(params).subscribe(contributions =>
       this.contributions = contributions);
   }

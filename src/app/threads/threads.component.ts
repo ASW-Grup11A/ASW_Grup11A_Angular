@@ -43,7 +43,9 @@ export class ThreadsComponent implements OnInit {
 
   getComments():void {
     let params = new HttpParams();
+    params = params.append('hidden', 'false');
     params = params.append('username', this.username);
+    params = params.append("orderBy", "publication_time_desc");
     this.commentService.getAllComments(params).subscribe(comments => this.comments = comments);
   }
 

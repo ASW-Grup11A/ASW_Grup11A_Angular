@@ -36,7 +36,9 @@ export class ShowEnPageComponent implements OnInit {
 
   getContributions():void {
     let params = new HttpParams();
+    params = params.append('hidden', 'false');
     params = params.append('showEn', 'true');
+    params = params.append("orderBy", "votes_desc");
     this.contributionService.getAllContributions(params).subscribe(contributions =>
       this.contributions = contributions);
   }
@@ -51,15 +53,44 @@ export class ShowEnPageComponent implements OnInit {
   }
 
   voteContribution(id:string):void {
-    console.log("vote contribution " + id.toString());
     this.contributionService.voteContribution(id).subscribe();
-    window.location.reload();
+    for (const i in this.contributions){
+      if (this.contributions[i].id.toString()==id) {
+        this.contributions[i].liked=true;
+        this.contributions[i].points++;
+      }
+    }
+    this.sortContributionsByPoints();
   }
 
   unvoteContribution(id:string):void {
-    console.log("unvote contribution " + id.toString());
     this.contributionService.unvoteContribution(id).subscribe();
-    window.location.reload();
+    for (const i in this.contributions){
+      if (this.contributions[i].id.toString()==id) {
+        this.contributions[i].liked=false;
+        this.contributions[i].points--;
+      }
+    }
+    this.sortContributionsByPoints();
+  }
+
+  sortContributionsByPoints () {
+    this.contributions.sort(function (a: Contribution, b: Contribution) {
+      if (a.points>b.points) {
+        return -1;
+      }
+      if (a.points<b.points) {
+        return 1;
+      }
+      if (a.publication_time>b.publication_time) {
+        return -1;
+      }
+      if (a.publication_time<b.publication_time) {
+        return 1;
+      }
+
+      return 0;
+    });
   }
 
 }
