@@ -25,6 +25,7 @@ export class ItemComponent implements OnInit {
   @Input() newComment: Comment;
   form;
   indent: number;
+  finished = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -44,6 +45,7 @@ export class ItemComponent implements OnInit {
     this.user = this.userService.CurrentUser;
     this.contribution = new ContributionImpl(null, null, null);
     this.comment = new CommentImpl(null);
+    this.comments = null;
     this.getContribution();
     this.getComments();
   }
@@ -66,31 +68,37 @@ export class ItemComponent implements OnInit {
     this.indent = 0;
     this.commentService.getAllCommentsFromContribution(this.id, new HttpParams())
       .subscribe(comments => {
-        this.comments = comments;
+        this.comments = comments.comments_list;
+        console.log('hola', this.comments);
+        this.finished = true;
       });
   }
 
   upVoteContribution(id: number) {
     console.log('Upvote', id);
+    this.contributionService.voteContribution(id.toString()).subscribe();
   }
 
   unvoteContribution(id: number) {
     console.log('Unvote', id);
+    this.contributionService.unvoteContribution(id.toString());
   }
 
   unhideContribution(id: number) {
     console.log('Unhide', id);
+    this.contributionService.unhideContribution(id.toString());
   }
 
   hideContribution(id: number) {
     console.log('Hide', id);
+    this.contributionService.hideContribution(id.toString());
   }
 
   onClick(params: { text: string }) {
     this.form.reset();
     this.commentService.createComment(this.id, {text: params.text}).subscribe();
     this.getComments();
-    //this.router.navigate(['item'], {queryParams: {id: this.id}});
+    // this.router.navigate(['item'], {queryParams: {id: this.id}});
   }
 
   searchInGoogle(title: string) {
@@ -98,6 +106,6 @@ export class ItemComponent implements OnInit {
   }
 
   onCollapse(id: number) {
-
+    console.log('Collapse', id);
   }
 }

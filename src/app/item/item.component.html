@@ -15,7 +15,8 @@
                                      title='upvote'
                                      style="opacity: 0">aaa
                                 </div>
-                                <a *ngIf="!contribution.liked && user !== contribution.user_id" id="{{'up_' + contribution.id}}"
+                                <a *ngIf="!contribution.liked && user !== contribution.user_id"
+                                   id="{{'up_' + contribution.id}}"
                                    (click)="upVoteContribution(contribution.id)">
                                     <div class='votearrow' title='upvote'></div>
                                 </a>
@@ -58,7 +59,7 @@
                         unvote
                     </a></ng-template>
                 </span>
-                                <ng-template [ngIf]="contribution.hidden" [ngIfElse]="showHide">
+                                <ng-template [ngIf]="!contribution.show" [ngIfElse]="showHide">
                                     | <a (click)="unhideContribution(contribution.id)">un-hide</a>
                                 </ng-template>
                                 <ng-template #showHide>
@@ -172,96 +173,97 @@
             </td>
         </tr>
 
-      <table border="0" class='comment-tree'>
-        <ng-container *ngTemplateOutlet="displayReplies; context:{ comments: comments }"></ng-container>
-        <ng-template #displayReplies let-list="comments">
-          <ng-template *ngFor="let actualComment of comments">
-            <tr class='athing comtr' id='{{ actualComment.id }}'>
-              <td>
-                <table border='0'>
-                  <tr>
-                    <td class='ind'>
-                      <img src="../../assets/s.gif" height="1" width="{{ indent }}">
-                    </td>
-                    <td valign="top" class="votelinks" style="text-align: center;">
-                      <ng-template [ngIf]="actualComment.hidden">
-                        <ng-template [ngIf]="user !== actualComment.user_id" [ngIfElse]="sameUser">
-                          <span style="color: #ff0080; ">*</span>
-                        </ng-template>
-                        <ng-template #sameUser [ngIf]="actualComment.liked" [ngIfElse]="commentNotLiked">
-                          <div class='votearrow' title='upvote' style="opacity: 0" ></div>
-                        </ng-template>
-                        <ng-template #commentNotLiked>
-                          <a id='up_{{ actualComment.id }}' (click)="upVoteContribution(actualComment.id)">
-                          <div class='votearrow' title='upvote'></div>
-                          </a>
-                        </ng-template>
-                        </ng-template>
-                    </td>
-                    <td class="default">
-                      <div>
-                            <span class="comhead">
-                              <ng-template [ngIf]="user === actualComment.user_id">
-                                {{ actualComment.points }}
-                                <ng-template [ngIf]="actualComment.points == 1" [ngIfElse]="moreThanOne">
-                                   point
-                                </ng-template>
-
-                                <ng-template #moreThanOne>
-                                   points
-                                </ng-template>
-                                 by
-                              </ng-template>
-
-                                <a routerLink="/profile/{{actualComment.user_id}}" class="hnuser">{{actualComment.user_id}}</a>
-                                <span class="age">
-                                    <a routerLink="/item?id={{ actualComment.contribution }}">{{actualComment.publication_time|dateAgo}}</a>
-                                </span>
-                                <span id="unv_{{ actualComment.id }}">
-                                  <ng-template [ngIf]="actualComment.liked">
-                                    |
-                                      <a id="unv_{{ actualComment.id }}" (click)="unvoteContribution(actualComment.id)">
-                                          unvote
-                                    </a>
-                                  </ng-template>
-                                </span>
-                                <span class="par"></span>
-                                        <a class="togg" (click)="onCollapse(actualComment.id)">
-                                          <ng-template [ngIf]="!actualComment.show" [ngIfElse]="collapseElse">
-                                            [-]
-                                          </ng-template>
-                                          <ng-template #collapseElse>
-                                            [+{{ actualComment.comments }}]
-                                          </ng-template>
-                                </a>
-                                <span class='storyon'></span>
-                            </span>
-                      </div>
-                      <ng-template [ngIf]="!actualComment.show">
-                        <div class="comment">
-                                <span class="commtext c00">
-                                    {{ comment.text }}
-                                        <div *ngIf="user != actualComment.user_id" class='reply'>
-                                            <p>
-                                                <span style="font-size: 7pt; ">
-                                                        <u><a routerLink="addReplay?id={{actualComment.id}}">reply</a></u>
-                                                </span>
-                                            </p>
+        <table *ngIf="comments != null" border="0" class='comment-tree'>
+            <ng-container *ngTemplateOutlet="displayReplies; context: {list: comments}"></ng-container>
+        </table>
+        <ng-template #displayReplies let-list="list">
+            <ng-container *ngFor="let actualComment of list">
+                <tr class='athing comtr' id='{{ actualComment.id }}'>
+                    <td>
+                        <table border='0'>
+                            <tr>
+                                <td class='ind'>
+                                    <img src="../../assets/s.gif" height="1" width="{{ indent }}">
+                                </td>
+                                <td valign="top" class="votelinks" style="text-align: center;">
+                                    <ng-template [ngIf]="actualComment.show">
+                                        <span *ngIf="user === actualComment.user_id" style="color: #ff0080; ">*</span>
+                                        <div *ngIf="actualComment.liked && user !== actualComment.user_id"
+                                             class='votearrow'
+                                             title='upvote' style="opacity: 0">
                                         </div>
-                                </span>
-                        </div>
-                      </ng-template>
+                                        <a *ngIf="!actualComment.liked && user !== actualComment.user_id" id='up_{{ actualComment.id }}'
+                                           (click)="upVoteContribution(actualComment.id)">
+                                            <div class='votearrow' title='upvote'></div>
+                                        </a>
+                                    </ng-template>
+                                </td>
+                                <td class="default">
+                                    <div>
+                                        <span class="comhead">
+                                            <ng-template [ngIf]="user === actualComment.user_id">
+                                                {{ actualComment.points }}
+                                                <ng-template [ngIf]="actualComment.points == 1"
+                                                             [ngIfElse]="moreThanOne">
+                                                    point
+                                                </ng-template>
+                                                <ng-template #moreThanOne>
+                                                    points
+                                                </ng-template>
+                                                by
+                                            </ng-template>
+                                            <a routerLink="/profile/{{actualComment.user_id}}" class="hnuser">{{actualComment.user_id}}</a>
+                                            <span class="age">
+                                                <a routerLink="/item?id={{ actualComment.contribution }}">
+                                                    {{actualComment.publication_time|dateAgo}}</a>
+                                            </span>
+                                            <span id="unv_{{ actualComment.id }}">
+                                                <ng-template [ngIf]="actualComment.liked">
+                                                    |
+                                                    <a id="unv_{{ actualComment.id }}" (click)="unvoteContribution(actualComment.id)">
+                                                         unvote
+                                                    </a>
+                                                </ng-template>
+                                            </span>
+                                            <span class="par"></span>
+                                            <a class="togg" (click)="onCollapse(actualComment.id)">
+                                                <ng-template [ngIf]="actualComment.show" [ngIfElse]="collapseElse">
+                                                    [-]
+                                                </ng-template>
+                                                <ng-template #collapseElse>
+                                                    [+{{ actualComment.comments }}]
+                                                </ng-template>
+                                            </a>
+                                            <span class='storyon'></span>
+                                        </span>
+                                    </div>
+                                    <ng-template [ngIf]="actualComment.show">
+                                        <div class="comment">
+                                            <span class="commtext c00">
+                                                {{ actualComment.text }}
+                                                <div *ngIf="user != actualComment.user_id" class='reply'>
+                                                    <p>
+                                                        <span style="font-size: 7pt; ">
+                                                            <u><a routerLink="addReplay?id={{actualComment.id}}">reply</a></u>
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                            </span>
+                                        </div>
+                                    </ng-template>
+                                </td>
+                            </tr>
+                        </table>
                     </td>
-                  </tr>
-                </table>
-              </td>
-            </tr>
+                </tr>
 
-            ident += 40;
-            <ng-container *ngTemplateOutlet="displayReplies; context:{ comments: actualComment.comments }"></ng-container>
-            indent -= 40;
-          </ng-template>
+                <ng-template [ngIf]="actualComment.comments_list.length > 0">
+                    ident += 40;
+                    <ng-container
+                            *ngTemplateOutlet="displayReplies; context:{ comments: actualComment.comments }"></ng-container>
+                    indent -= 40;
+                </ng-template>
+            </ng-container>
         </ng-template>
-      </table>
     </table>
 </div>

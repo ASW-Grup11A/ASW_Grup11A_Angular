@@ -4,6 +4,7 @@ import {Observable, of, throwError} from 'rxjs';
 import {Comment} from '../interfaces/comment';
 import {catchError} from 'rxjs/operators';
 import {ApiKeyManagerService} from './api-key-manager.service';
+import {Contribution} from '../interfaces/contribution';
 
 @Injectable({
   providedIn: 'root'
@@ -44,8 +45,8 @@ export class CommentService {
       );
   }
 
-  getAllCommentsFromContribution(contributionId: string, params: HttpParams): Observable<Comment[]> {
-    return this.http.get<Comment[]>(`${this.url}/contribution/${contributionId}/comments`, {
+  getAllCommentsFromContribution(contributionId: string, params: HttpParams): Observable<Comment> {
+    return this.http.get<Comment>(`${this.url}/contribution/${contributionId}/comments`, {
       headers: this.headers,
       observe: 'body',
       params,
