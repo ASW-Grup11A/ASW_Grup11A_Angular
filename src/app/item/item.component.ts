@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Contribution} from '../interfaces/contribution';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, NavigationEnd, Router, RouterEvent} from '@angular/router';
 import {ContributionService} from '../services/contribution.service';
 import {CommentService} from '../services/comment.service';
 import {Comment} from '../interfaces/comment';
@@ -10,6 +10,7 @@ import {CommentImpl} from '../models/comment-impl';
 import {UserService} from '../services/user.service';
 import {FormBuilder} from '@angular/forms';
 import {UtilitiesService} from '../services/utilities.service';
+import {filter} from 'rxjs/operators';
 
 @Component({
   selector: 'app-item',
@@ -25,7 +26,7 @@ export class ItemComponent implements OnInit {
   @Input() newComment: Comment;
   form;
   indent: number;
-  finished = false;
+  error = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -42,10 +43,14 @@ export class ItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.router.events.pipe(
+      filter((event: RouterEvent) => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.fetchData();
+    });
     this.user = this.userService.CurrentUser;
     this.contribution = new ContributionImpl(null, null, null);
     this.comment = new CommentImpl(null);
-    this.comments = null;
     this.getContribution();
     this.getComments();
   }
@@ -70,35 +75,40 @@ export class ItemComponent implements OnInit {
       .subscribe(comments => {
         this.comments = comments.comments_list;
         console.log('hola', this.comments);
-        this.finished = true;
       });
   }
 
   upVoteContribution(id: number) {
     console.log('Upvote', id);
-    this.contributionService.voteContribution(id.toString()).subscribe();
+    this.contributionService.voteContribution(id.toString()).subscribe(() => this.ngOnInit());
   }
 
   unvoteContribution(id: number) {
     console.log('Unvote', id);
-    this.contributionService.unvoteContribution(id.toString());
+    this.contributionService.unvoteContribution(id.toString()).subscribe(() => this.ngOnInit());
   }
 
   unhideContribution(id: number) {
     console.log('Unhide', id);
-    this.contributionService.unhideContribution(id.toString());
+    this.contributionService.unhideContribution(id.toString()).subscribe(() => this.ngOnInit());
   }
 
   hideContribution(id: number) {
     console.log('Hide', id);
-    this.contributionService.hideContribution(id.toString());
+    this.contributionService.hideContribution(id.toString()).subscribe(() => this.ngOnInit());
   }
 
   onClick(params: { text: string }) {
-    this.form.reset();
-    this.commentService.createComment(this.id, {text: params.text}).subscribe();
-    this.getComments();
-    // this.router.navigate(['item'], {queryParams: {id: this.id}});
+    if (params.text === '') {
+      this.error = true;
+      this.ngOnInit();
+    } else {
+      // this.router.navigate(['addcomment'], {queryParams: {id: this.id}});
+      this.form.reset();
+      this.error = false;
+      this.commentService.createComment(this.id, {text: params.text}).subscribe(() => this.ngOnInit());
+      // this.router.navigate(['item'], {queryParams: {id: this.id}});
+    }
   }
 
   searchInGoogle(title: string) {
@@ -107,5 +117,18 @@ export class ItemComponent implements OnInit {
 
   onCollapse(id: number) {
     console.log('Collapse', id);
+    this.ngOnInit();
+  }
+
+  goToItem(contributionId: number) {
+    this.router.navigate(['item'], {queryParams: {id: contributionId.toString()}});
+  }
+
+  private fetchData() {
+    this.user = this.userService.CurrentUser;
+    this.contribution = new ContributionImpl(null, null, null);
+    this.comment = new CommentImpl(null);
+    this.getContribution();
+    this.getComments();
   }
 }

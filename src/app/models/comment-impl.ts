@@ -1,6 +1,8 @@
 import {Comment} from '../interfaces/comment';
 
 export class CommentImpl implements Comment{
+  // tslint:disable-next-line:variable-name
+  contribution_title: string;
   comments: number;
   // tslint:disable-next-line:variable-name
   comments_list: Comment[];
