@@ -60,11 +60,7 @@ export class VotedCommentsListComponent implements OnInit {
 
   unvoteComment(id:string):void {
     this.contributionService.unvoteContribution(id).subscribe();
-    for (const i in this.comments){
-      if (this.comments[i].id.toString()==id) {
-        delete this.comments[i];
-      }
-    }
+    this.comments = this.comments.filter( comment => comment.id.toString() !== id);
     this.sortContributionsByDate();
   }
 

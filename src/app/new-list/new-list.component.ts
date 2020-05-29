@@ -78,21 +78,7 @@ export class NewListComponent implements OnInit {
 
   hideContribution(id:string):void {
     this.contributionService.hideContribution(id).subscribe();
-    for (const i in this.contributions){
-      if (this.contributions[i].id.toString()==id) {
-        delete this.contributions[i];
-      }
-    }
-    this.sortContributionsByDate();
-  }
-
-  unhideContribution(id:string):void {
-    this.contributionService.unhideContribution(id).subscribe();
-    for (const i in this.contributions){
-      if (this.contributions[i].id.toString()==id) {
-        delete this.contributions[i];
-      }
-    }
+    this.contributions = this.contributions.filter( contribution => contribution.id.toString() !== id);
     this.sortContributionsByDate();
   }
 

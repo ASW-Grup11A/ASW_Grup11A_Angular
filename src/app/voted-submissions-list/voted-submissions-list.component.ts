@@ -65,21 +65,13 @@ export class VotedSubmissionsListComponent implements OnInit {
 
   unvoteContribution(id:string):void {
     this.contributionService.unvoteContribution(id).subscribe();
-    for (const i in this.contributions){
-      if (this.contributions[i].id.toString()==id) {
-        delete this.contributions[i];
-      }
-    }
+    this.contributions = this.contributions.filter( contribution => contribution.id.toString() !== id);
     this.sortContributionsByPoints();
   }
 
   hideContribution(id:string):void {
     this.contributionService.hideContribution(id).subscribe();
-    for (const i in this.contributions){
-      if (this.contributions[i].id.toString()==id) {
-        delete this.contributions[i];
-      }
-    }
+    this.contributions = this.contributions.filter( contribution => contribution.id.toString() !== id);
     this.sortContributionsByPoints();
   }
 

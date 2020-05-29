@@ -75,11 +75,7 @@ export class HiddenListComponent implements OnInit {
 
   unhideContribution(id:string):void {
     this.contributionService.unhideContribution(id).subscribe();
-    for (const i in this.contributions){
-      if (this.contributions[i].id.toString()==id) {
-        delete this.contributions[i];
-      }
-    }
+    this.contributions = this.contributions.filter( contribution => contribution.id.toString() !== id);
     this.sortContributionsByPoints();
   }
 
