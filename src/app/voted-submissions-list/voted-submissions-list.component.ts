@@ -39,6 +39,7 @@ export class VotedSubmissionsListComponent implements OnInit {
     params = params.append('hidden', 'false');
     params = params.append('liked', 'true');
     params = params.append("orderBy", "votes_desc");
+    params = params.append("exclude_user", this.apiKeyManager.username);
     this.contributionService.getAllContributions(params).subscribe(contributions =>
       this.contributions = contributions);
   }

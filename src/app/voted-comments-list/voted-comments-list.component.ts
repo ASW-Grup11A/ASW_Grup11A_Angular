@@ -42,6 +42,7 @@ export class VotedCommentsListComponent implements OnInit {
     params = params.append('hidden', 'false');
     params = params.append('liked', 'true');
     params = params.append("orderBy", "publication_time_desc");
+    params = params.append("exclude_user", this.apiKeyManager.username);
     this.commentService.getAllComments(params).subscribe(comments =>
       this.comments = comments);
   }
