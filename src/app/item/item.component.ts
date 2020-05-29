@@ -37,7 +37,7 @@ export class ItemComponent implements OnInit {
     private router: Router,
   ) {
     this.form = formBuilder.group( {
-      parent: '',
+      isComment: false,
       text: ''
       });
   }
@@ -106,7 +106,12 @@ export class ItemComponent implements OnInit {
       // this.router.navigate(['addcomment'], {queryParams: {id: this.id}});
       this.form.reset();
       this.error = false;
-      this.commentService.createComment(this.id, {text: params.text}).subscribe(() => this.ngOnInit());
+      this.commentService.createComment(this.id, {text: params.text}).subscribe(() => {
+        if (this.comment.text != null) {
+          this.router.navigate(['item'], {queryParams: {id: this.comment.contribution.toString()}});
+        }
+        this.ngOnInit();
+      });
       // this.router.navigate(['item'], {queryParams: {id: this.id}});
     }
   }
@@ -117,7 +122,7 @@ export class ItemComponent implements OnInit {
 
   onCollapse(id: number) {
     console.log('Collapse', id);
-    this.ngOnInit();
+    this.contributionService.hideContribution(id.toString()).subscribe(() => this.ngOnInit());
   }
 
   goToItem(contributionId: number) {
@@ -130,5 +135,17 @@ export class ItemComponent implements OnInit {
     this.comment = new CommentImpl(null);
     this.getContribution();
     this.getComments();
+  }
+
+  incrementIndent() {
+    this.indent += 40;
+  }
+
+  decrementIndent() {
+    this.indent -= 40;
+  }
+
+  onDecollapse(id: number) {
+    this.contributionService.unhideContribution(id.toString()).subscribe(() => this.ngOnInit());
   }
 }

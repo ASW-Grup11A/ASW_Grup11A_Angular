@@ -219,7 +219,8 @@
                                                     {{actualComment.publication_time|dateAgo}}</a>
                                             </span>
                                             <span id="unv_{{ actualComment.id }}">
-                                                <ng-template [ngIf]="actualComment.liked">
+                                                <ng-template [ngIf]="actualComment.liked && user !=
+                                                actualComment.user_id">
                                                     |
                                                     <a id="unv_{{ actualComment.id }}"
                                                        (click)="unvoteContribution(actualComment.id)">
@@ -228,14 +229,17 @@
                                                 </ng-template>
                                             </span>
                                             <span class="par"></span>
-                                            <a class="togg" (click)="onCollapse(actualComment.id)">
                                                 <ng-template [ngIf]="actualComment.show" [ngIfElse]="collapseElse">
-                                                    [-]
+                                                    <a class="togg" (click)="onCollapse(actualComment.id)">
+                                                        [-]
+                                                        </a>
                                                 </ng-template>
                                                 <ng-template #collapseElse>
+                                                    <a class="togg" (click)="onDecollapse(actualComment.id)">
                                                     [+{{ actualComment.comments }}]
+                                                    </a>
                                                 </ng-template>
-                                            </a>
+
                                             <span class='storyon'></span>
                                         </span>
                                         </div>
@@ -261,10 +265,8 @@
                     </tr>
 
                     <ng-template [ngIf]="actualComment.comments_list.length > 0">
-                        ident += 40;
                         <ng-container
-                                *ngTemplateOutlet="displayReplies; context:{ comments: actualComment.comments }"></ng-container>
-                        indent -= 40;
+                                *ngTemplateOutlet="displayReplies; context:{ list: actualComment.comments_list }"></ng-container>
                     </ng-template>
                 </ng-container>
             </ng-template>
