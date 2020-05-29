@@ -35,7 +35,6 @@ export class AppComponent {
     }
 
   notExistsKey() {
-      console.log('ApiKey: ' + this.apiKeyManagerService.apiKey);
       return this.apiKeyManagerService.apiKey === '';
   }
 }
