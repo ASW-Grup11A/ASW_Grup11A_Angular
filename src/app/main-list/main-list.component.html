@@ -1,0 +1,97 @@
+<html op="news">
+<head>
+  <title>Empo News</title>
+</head>
+<body>
+<div align="center">
+  <table id="hnmain" border="0" cellpadding="0" cellspacing="0" width="85%" bgcolor="#f6f6ef">
+    <tr>
+      <td>
+        <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td bgcolor="#ffffaa">
+              <table cellpadding="5" width="100%"></table>
+            </td>
+          </tr>
+        </table>
+        <table border="0">
+          <div *ngFor="let contribution of contributions; let counter = index">
+            <div style="margin-top: 15px; margin-bottom: 2px">
+              <tr class="default">
+                <td>{{counter + 1}}.</td>
+
+                <ng-template *ngIf='contribution.user_id != username; else myContribution'>
+                  <ng-template *ngIf='contribution.liked; else notLiked'>
+                    <a (click)="voteContribution(contribution.id.toString())">
+                      <div class='votearrow' title='upvote'></div>
+                    </a>
+                  </ng-template>
+                  <ng-template #notLiked>
+                    <div class='votearrow' title='upvote' style="opacity: 0" ></div>
+                  </ng-template>
+                </ng-template>
+                <ng-template #myContribution>
+                  <span style="color: #ff0080;">*</span>
+                </ng-template>
+
+
+                <td *ngIf="(user.username==contribution.user_id) else notCurrent">
+                </td>
+                <ng-template #notCurrent>
+                  <td *ngIf="!contribution.liked; else liked">
+                    <img (click)="voteContribution(contribution.id.toString())" src="assets/grayarrow.gif">
+                  </td>
+                  <ng-template #liked>
+                    <td width="10px"></td>
+                  </ng-template>
+                </ng-template>
+                <td *ngIf="contribution.url else noUrl">
+                  <font color="#000000" size="2px" (click)="goToUrl(contribution.url)">{{contribution.title}}</font>
+                </td>
+                <ng-template #noUrl>
+                  <td>
+                    <font color="#000000" size="2px">{{contribution.title}}</font>
+                  </td>
+                </ng-template>
+                <td *ngIf="contribution.url">
+                  <font color="#828282" size="0px">({{contribution.url}})</font>
+                </td>
+              </tr>
+            </div>
+            <tr class="subtext">
+              <td width="29px"></td>
+              <td *ngIf="contribution.points < 2; else multiplePoints">
+                {{contribution.points}} point by
+              </td>
+              <ng-template #multiplePoints>
+                <td>{{contribution.points}} points by </td>
+              </ng-template>
+              <td><a routerLink="/user_page/{{contribution.user_id}}">{{ contribution.user_id }}</a></td>
+              <td> {{contribution.publication_time | dateAgo}} | </td>
+              <a *ngIf="contribution.liked && !(user.username==contribution.user_id)"
+                 (click)="unvoteContribution(contribution.id.toString())"> unvote </a>
+              <td *ngIf="contribution.liked && user.username!=contribution.user_id"> | </td>
+
+              <a *ngIf="user.username!=contribution.user_id" (click)="hideContribution(contribution.id.toString())"> hide </a>
+              <td *ngIf="user.username!=contribution.user_id"> | </td>
+              <td>
+                <a *ngIf="contribution.comments==0" [routerLink]="['/item']" [queryParams]="{id:contribution.id}">discuss
+                </a>
+                <a *ngIf="contribution.comments==1" [routerLink]="['/item']" [queryParams]="{id:contribution.id}">1 comment
+                </a>
+                <a *ngIf="contribution.comments>1" [routerLink]="['/item']" [queryParams]="{id:contribution.id}">
+                  {{contribution.comments}} comments
+                </a>
+              </td>
+            </tr>
+
+          </div>
+        </table>
+      </td>
+    </tr>
+  </table>
+</div>
+</body>
+</html>
+
+

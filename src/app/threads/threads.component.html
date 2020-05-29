@@ -18,23 +18,29 @@
               <div *ngFor="let comment of comments">
                 <div style="margin-top: 15px; margin-bottom: 2px">
                   <tr class="subtext">
-                    <td *ngIf="user.minaway; else notCurrent">
+                    <td *ngIf="currentUser==comment.user_id; else notCurrent">
                       <font color="#ff0080" size="3px">*</font>
                     </td>
                     <ng-template #notCurrent>
                       <td *ngIf="!comment.liked;">
-                        <img src="assets/grayarrow.gif" routerLink="/like_comment/{{comment.id}}/{{comment.user_id}}">
+                        <a (click)="voteComment(comment.id.toString())">
+                          <img src="assets/grayarrow.gif">
+                        </a>
                       </td>
                     </ng-template>
                     <div *ngIf="comment.points < 2; else multiplePoints">
-                      <td>{{comment.points}} point by </td>
+                      <td>{{comment.points}} point by</td>
                     </div>
                     <ng-template #multiplePoints>
-                      <td>{{comment.points}} points by </td>
+                      <td>{{comment.points}} points by</td>
                     </ng-template>
-                    <td><a routerLink="/user_page/{{user.username}}">{{ user.username }}</a></td>
+                    <td>
+                      <a routerLink="/user_page/{{user.username}}">{{ user.username }}</a>
+                    </td>
                     <td>{{comment.publication_time | dateAgo}}</td>
-                    <td> | </td>
+                    <td *ngIf="comment.liked && currentUser!=comment.user_id"> | </td>
+                    <a *ngIf="comment.liked && currentUser!=comment.user_id" (click)="unvoteComment(comment.id.toString())">unvote</a>
+                    <td>| </td>
                     <div *ngIf="comment.parent; else noParent">
                       <td>
                         <a [routerLink]="['/item']" [queryParams]="{id:comment.parent}">parent</a>
@@ -45,7 +51,7 @@
                     </ng-template>
                     <td> | on: </td>
                     <td>
-                      <a [routerLink]="['/item']" [queryParams]="{id:comment.contribution}">{{comment.contribution}}</a>
+                      <a [routerLink]="['/item']" [queryParams]="{id:comment.contribution}">{{comment.contribution_title}}</a>
                     </td>
                   </tr>
                 </div>
@@ -53,8 +59,8 @@
                   <td style="width: 12px;" ></td>
                   <td>{{comment.text}}</td>
                 </tr>
-                <tr *ngIf="!user.minaway" style="height: 5px"></tr>
-                <tr *ngIf="!user.minaway" class="admin">
+                <tr *ngIf="currentUser!=comment.user_id" style="height: 5px"></tr>
+                <tr *ngIf="currentUser!=comment.user_id" class="admin">
                   <td style="width: 12px;" ></td>
                   <a style="text-decoration: underline" [routerLink]="['/reply']" [queryParams]="{id:comment.id}">reply</a>
                 </tr>

@@ -12,8 +12,6 @@ import {ApiKeyManagerService} from '../services/api-key-manager.service';
 })
 export class ProfileComponent implements OnInit {
   @Input() user: User;
-  apiKey: string;
-  email: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -29,10 +27,8 @@ export class ProfileComponent implements OnInit {
 
   getUser(): void {
     const username = this.route.snapshot.paramMap.get('username');
-    this.apiKey = 'eGF2aWNhbXBvczk5eGF2aWNhbXBvczk5QGdtYWlsLmNvbTE=';
     this.userService.getUserProfile(username)
       .subscribe(user => this.user = user);
-    this.email = 'xavicampos99@gmail.com';
   }
 
   updateUserProfile() {
@@ -44,5 +40,9 @@ export class ProfileComponent implements OnInit {
     params = params.append('minaway', this.user.minaway.toString());
     params = params.append('delay', this.user.delay.toString());
     this.userService.updateUserProfile(params).subscribe(user => this.user = user);
+  }
+
+  getApiKey() {
+    return this.apiKeyManager.apiKey;
   }
 }

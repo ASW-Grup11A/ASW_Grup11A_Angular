@@ -1,24 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { Comment } from "../interfaces/comment";
-import { ActivatedRoute, Router } from "@angular/router";
-import { CommentService } from "../services/comment.service";
-import { HttpParams } from "@angular/common/http";
-import {UserService} from "../services/user.service";
+import {Contribution} from "../interfaces/contribution";
 import {User} from "../interfaces/user";
+import {Comment} from "../interfaces/comment";
+import {ActivatedRoute, Router} from "@angular/router";
+import {UserService} from "../services/user.service";
 import {ContributionService} from "../services/contribution.service";
 import {ApiKeyManagerService} from "../services/api-key-manager.service";
-import {Contribution} from "../interfaces/contribution";
+import {HttpParams} from "@angular/common/http";
+import {CommentService} from "../services/comment.service";
 
 @Component({
-  selector: 'app-threads',
-  templateUrl: './threads.component.html',
-  styleUrls: ['./threads.component.css']
+  selector: 'app-voted-comments-list',
+  templateUrl: './voted-comments-list.component.html',
+  styleUrls: ['./voted-comments-list.component.css']
 })
-export class ThreadsComponent implements OnInit {
+export class VotedCommentsListComponent implements OnInit {
   comments: Comment[];
   user: User;
-  username: string;
-  currentUser: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -31,23 +29,24 @@ export class ThreadsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUser();
-    this.getComments();
+    this.getContributions();
   }
 
   getUser():void {
-    this.currentUser=this.apiKeyManager.username;
-    this.username = this.route.snapshot.queryParamMap.get('username');
-    this.userService.getUserProfile(this.username)
+    this.userService.getUserProfile(this.apiKeyManager.username)
       .subscribe(user => this.user = user);
   }
 
-  getComments():void {
+  getContributions():void {
     let params = new HttpParams();
     params = params.append('hidden', 'false');
-    params = params.append('username', this.username);
+    params = params.append('liked', 'true');
     params = params.append("orderBy", "publication_time_desc");
-    this.commentService.getAllComments(params).subscribe(comments => this.comments = comments);
+    params = params.append("exclude_user", this.apiKeyManager.username);
+    this.commentService.getAllComments(params).subscribe(comments =>
+      this.comments = comments);
   }
+
 
   voteComment(id:string):void {
     this.contributionService.voteContribution(id).subscribe();
@@ -57,21 +56,16 @@ export class ThreadsComponent implements OnInit {
         this.comments[i].points++;
       }
     }
-    this.sortCommentsByDate();
+    this.sortContributionsByDate();
   }
 
   unvoteComment(id:string):void {
     this.contributionService.unvoteContribution(id).subscribe();
-    for (const i in this.comments){
-      if (this.comments[i].id.toString()==id) {
-        this.comments[i].liked=false;
-        this.comments[i].points--;
-      }
-    }
-    this.sortCommentsByDate();
+    this.comments = this.comments.filter( comment => comment.id.toString() !== id);
+    this.sortContributionsByDate();
   }
 
-  private sortCommentsByDate() {
+  sortContributionsByDate () {
     this.comments.sort(function (a: Contribution, b: Contribution) {
       if (a.publication_time>b.publication_time) {
         return -1;

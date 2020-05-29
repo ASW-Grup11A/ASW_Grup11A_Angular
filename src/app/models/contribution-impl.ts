@@ -14,6 +14,7 @@ export class ContributionImpl implements Contribution{
   text: string;
   title: string;
   url: string;
+  contribution_title: string;
 
   constructor(title: string, url: string, text: string) {
     this.text = text;

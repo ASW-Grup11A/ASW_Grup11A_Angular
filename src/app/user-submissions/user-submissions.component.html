@@ -1,0 +1,80 @@
+<html op="news">
+<head>
+  <title>Empo News</title>
+</head>
+<body>
+<div align="center">
+  <table id="hnmain" border="0" cellpadding="0" cellspacing="0" width="85%" bgcolor="#f6f6ef">
+    <tr>
+      <td>
+        <table border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td bgcolor="#ffffaa">
+              <table cellpadding="5" width="100%"></table>
+            </td>
+          </tr>
+        </table>
+        <table border="0">
+          <div *ngFor="let contribution of contributions; let counter = index">
+            <div style="margin-top: 15px; margin-bottom: 2px">
+              <tr class="default">
+                <td>{{counter + 1}}.</td>
+                <td *ngIf="user.minaway; else notCurrent">
+                  <font color="#ff0080" size="3px">*</font>
+                </td>
+                <ng-template #notCurrent>
+                  <td *ngIf="!contribution.liked; else liked">
+                    <img (click)="voteContribution(contribution.id.toString())" src="assets/grayarrow.gif">
+                  </td>
+                  <ng-template #liked>
+                    <td width="10px"></td>
+                  </ng-template>
+                </ng-template>
+                <td *ngIf="contribution.url else noUrl">
+                  <font color="#000000" size="2px" (click)="goToUrl(contribution.url)">{{contribution.title}}</font>
+                </td>
+                <ng-template #noUrl>
+                  <td>
+                    <font color="#000000" size="2px">{{contribution.title}}</font>
+                  </td>
+                </ng-template>
+                <td *ngIf="contribution.url">
+                  <font color="#828282" size="0px">({{contribution.url}})</font>
+                </td>
+              </tr>
+            </div>
+              <tr class="subtext">
+                <td width="29px"></td>
+                <td *ngIf="contribution.points < 2; else multiplePoints">
+                  {{contribution.points}} point by
+                </td>
+                <ng-template #multiplePoints>
+                  <td>{{contribution.points}} points by </td>
+                </ng-template>
+                <td><a routerLink="/user_page/{{user.username}}">{{ user.username }}</a></td>
+                <td> {{contribution.publication_time | dateAgo}} | </td>
+                <td *ngIf="contribution.liked && !user.minaway"
+                    (click)="unvoteContribution(contribution.id.toString())"> unvote | </td>
+                <a (click)="googleSearch(contribution.title)"> web </a>
+                <td *ngIf="currentUser!=username"> | </td>
+                <td *ngIf="currentUser!=username">
+                  <a *ngIf="contribution.comments==0" [routerLink]="['/item']" [queryParams]="{id:contribution.id}">discuss
+                  </a>
+                  <a *ngIf="contribution.comments==1" [routerLink]="['/item']" [queryParams]="{id:contribution.id}">1 comment
+                  </a>
+                  <a *ngIf="contribution.comments>1" [routerLink]="['/item']" [queryParams]="{id:contribution.id}">
+                    {{contribution.comments}} comments
+                  </a>
+                </td>
+              </tr>
+
+          </div>
+        </table>
+      </td>
+    </tr>
+  </table>
+</div>
+</body>
+</html>
+
+

@@ -1,24 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { Comment } from "../interfaces/comment";
-import { ActivatedRoute, Router } from "@angular/router";
-import { CommentService } from "../services/comment.service";
-import { HttpParams } from "@angular/common/http";
-import {UserService} from "../services/user.service";
+import {Comment} from "../interfaces/comment";
 import {User} from "../interfaces/user";
-import {ContributionService} from "../services/contribution.service";
+import {ActivatedRoute, Router} from "@angular/router";
+import {UserService} from "../services/user.service";
+import {CommentService} from "../services/comment.service";
+import {HttpParams} from "@angular/common/http";
 import {ApiKeyManagerService} from "../services/api-key-manager.service";
 import {Contribution} from "../interfaces/contribution";
+import {ContributionService} from "../services/contribution.service";
 
 @Component({
-  selector: 'app-threads',
-  templateUrl: './threads.component.html',
-  styleUrls: ['./threads.component.css']
+  selector: 'app-comment-list',
+  templateUrl: './comment-list.component.html',
+  styleUrls: ['./comment-list.component.css']
 })
-export class ThreadsComponent implements OnInit {
+export class CommentListComponent implements OnInit {
   comments: Comment[];
-  user: User;
   username: string;
-  currentUser: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -35,16 +33,11 @@ export class ThreadsComponent implements OnInit {
   }
 
   getUser():void {
-    this.currentUser=this.apiKeyManager.username;
-    this.username = this.route.snapshot.queryParamMap.get('username');
-    this.userService.getUserProfile(this.username)
-      .subscribe(user => this.user = user);
+    this.username=this.apiKeyManager.username;
   }
 
   getComments():void {
     let params = new HttpParams();
-    params = params.append('hidden', 'false');
-    params = params.append('username', this.username);
     params = params.append("orderBy", "publication_time_desc");
     this.commentService.getAllComments(params).subscribe(comments => this.comments = comments);
   }
