@@ -172,16 +172,16 @@
 
         <ng-container *ngIf="!error">
             <table *ngIf="comments != null" border="0" class='comment-tree'>
-                <ng-container *ngTemplateOutlet="displayReplies; context: {list: comments}"></ng-container>
+                <ng-container *ngTemplateOutlet="displayReplies; context: {list: comments, space: indent}"></ng-container>
             </table>
-            <ng-template #displayReplies let-list="list">
+            <ng-template #displayReplies let-list="list" let-space="space">
                 <ng-container *ngFor="let actualComment of list">
                     <tr class='athing comtr' id='{{ actualComment.id }}'>
                         <td>
                             <table border='0'>
                                 <tr>
                                     <td class='ind'>
-                                        <img src="../../assets/s.gif" height="1" width="{{ indent }}">
+                                        <img src="../../assets/s.gif" height="1" width="{{ space }}">
                                     </td>
                                     <td valign="top" class="votelinks" style="text-align: center;">
                                         <ng-template [ngIf]="actualComment.show">
@@ -263,10 +263,10 @@
                             </table>
                         </td>
                     </tr>
-
                     <ng-template [ngIf]="actualComment.comments_list.length > 0">
                         <ng-container
-                                *ngTemplateOutlet="displayReplies; context:{ list: actualComment.comments_list }"></ng-container>
+                                *ngTemplateOutlet="displayReplies; context:{ list: actualComment.comments_list,
+                                space: space + 40}"></ng-container>
                     </ng-template>
                 </ng-container>
             </ng-template>
