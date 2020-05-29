@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "Empo-News-Angular"
+    }
+  },
+  "defaultProject": "Empo-News-Angular",
+  "cli": {
+    "analytics": "e337fe54-cc22-41df-a703-1ae0e33ad281"
+  }
 }
