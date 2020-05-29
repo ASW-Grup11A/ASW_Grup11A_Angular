@@ -20,4 +20,16 @@ export class UtilitiesService {
     return btoa(rawKey);
   }
 
+  static convertToHttpParams(parameters: Map<string, any>): HttpParams {
+    const params: HttpParams = new HttpParams();
+    for (const [key, value] of parameters) {
+      params.append(key, value);
+    }
+    return params;
+  }
+
+  static googleSearch(stringToSearch: string) {
+    const baseUrl = 'https://www.google.com/search?q=';
+    window.location.href = baseUrl + stringToSearch;
+  }
 }

@@ -23,6 +23,7 @@ import { AskListComponent } from './ask-list/ask-list.component';
 import { VotedSubmissionsListComponent } from './voted-submissions-list/voted-submissions-list.component';
 import { HiddenListComponent } from './hidden-list/hidden-list.component';
 import { VotedCommentsListComponent } from './voted-comments-list/voted-comments-list.component';
+import { ItemComponent } from './item/item.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { VotedCommentsListComponent } from './voted-comments-list/voted-comments
     VotedSubmissionsListComponent,
     HiddenListComponent,
     VotedCommentsListComponent,
+    ItemComponent,
   ],
     imports: [
         SocialLoginModule,

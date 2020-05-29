@@ -8,8 +8,8 @@ export class ApiKeyManagerService {
   private name: string;
 
   constructor() {
-    this.key="";
-    this.name="";
+    this.key = '';
+    this.name = '';
   }
 
   get apiKey(): string {

@@ -5,9 +5,9 @@ import {UtilitiesService} from './services/utilities.service';
 import {Router} from '@angular/router';
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css']
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
     title = 'Empo-News-Angular';
@@ -26,7 +26,7 @@ export class AppComponent {
         .then((userData) => {
           this.apiKeyManagerService.apiKey = UtilitiesService.createApiKey(
             {username: userData.email.split('@')[0], email: userData.email});
-          this.apiKeyManagerService.username=userData.email.split('@')[0];
+          this.apiKeyManagerService.username = userData.email.split('@')[0];
         });
     }
 
@@ -35,7 +35,6 @@ export class AppComponent {
     }
 
   notExistsKey() {
-      console.log("ApiKey: " + this.apiKeyManagerService.apiKey);
-    return this.apiKeyManagerService.apiKey=="";
+      return this.apiKeyManagerService.apiKey === '';
   }
 }

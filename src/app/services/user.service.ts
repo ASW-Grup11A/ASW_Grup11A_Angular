@@ -11,6 +11,7 @@ import {ApiKeyManagerService} from './api-key-manager.service';
 export class UserService {
   private url = 'https://empo-news.herokuapp.com/api/v1/profile';
   private headers;
+  private currentUser: string;
 
   constructor(
     private http: HttpClient,
